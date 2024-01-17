@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexa\\Desktop\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj": {}
+    "C:\\Users\\alexa\\Desktop\\Pasteleria-Mendoza-Admin\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexa\\Desktop\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj": {
+    "C:\\Users\\alexa\\Desktop\\Pasteleria-Mendoza-Admin\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexa\\Desktop\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj",
+        "projectUniqueName": "C:\\Users\\alexa\\Desktop\\Pasteleria-Mendoza-Admin\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj",
         "projectName": "ProyectAdmin",
-        "projectPath": "C:\\Users\\alexa\\Desktop\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj",
+        "projectPath": "C:\\Users\\alexa\\Desktop\\Pasteleria-Mendoza-Admin\\ProyectAdmin\\ProyectAdmin\\ProyectAdmin.csproj",
         "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexa\\Desktop\\ProyectAdmin\\ProyectAdmin\\obj\\",
+        "outputPath": "C:\\Users\\alexa\\Desktop\\Pasteleria-Mendoza-Admin\\ProyectAdmin\\ProyectAdmin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,7 +22,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -42,8 +42,22 @@
         }
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.3.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.26, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.26, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -63,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
