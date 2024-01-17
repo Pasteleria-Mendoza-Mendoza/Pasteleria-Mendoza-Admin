@@ -17,4 +17,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectAdmin.BL.DTOs\ProyectAdmin.BL.DTOs.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.BL.Interfaces\ProyectAdmin.BL.Interfaces.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.IoC\ProyectAdmin.IoC.csproj" />
+  </ItemGroup>
+
 </Project>

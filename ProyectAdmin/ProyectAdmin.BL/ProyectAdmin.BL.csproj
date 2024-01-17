@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProyectAdmin.BL.DTOs\ProyectAdmin.BL.DTOs.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.BL.Interfaces\ProyectAdmin.BL.Interfaces.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.EN.Interfaces\ProyectAdmin.EN.Interfaces.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.EN\ProyectAdmin.EN.csproj" />
+  </ItemGroup>
+
 </Project>
