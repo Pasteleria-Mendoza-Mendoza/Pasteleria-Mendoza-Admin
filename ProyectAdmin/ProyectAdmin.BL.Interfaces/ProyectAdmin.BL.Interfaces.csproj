@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProyectAdmin.BL.DTOs\ProyectAdmin.BL.DTOs.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.DAL\ProyectAdmin.DAL.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.EN.Interfaces\ProyectAdmin.EN.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
