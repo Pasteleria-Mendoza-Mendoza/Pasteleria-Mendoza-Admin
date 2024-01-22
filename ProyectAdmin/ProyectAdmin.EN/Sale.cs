@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProyectAdmin.EN
+﻿namespace ProyectAdmin.EN
 {
-    public class Sale
+	public class Sale
     {
         public int Id { get; set; }
         public string TypeCake { get; set; }
