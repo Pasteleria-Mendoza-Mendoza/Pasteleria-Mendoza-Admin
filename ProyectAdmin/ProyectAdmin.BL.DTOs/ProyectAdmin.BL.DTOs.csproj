@@ -8,9 +8,6 @@
 
   <ItemGroup>
     <Folder Include="AdminDTOs\" />
-    <Folder Include="ProductDTOs\" />
-    <Folder Include="SaleDTOs\" />
-    <Folder Include="PushesOrderDTOs\" />
   </ItemGroup>
 
 </Project>

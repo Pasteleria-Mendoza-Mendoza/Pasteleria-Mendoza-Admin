@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectAdmin.BL.DTOs.BookingDTOs
 {
-    public class BookingAddDTO
+    public class BookingCreateInputDTO
     {
         public int Id {  get; set; }
         public string CustomerName { get; set; }
@@ -15,7 +15,6 @@ namespace ProyectAdmin.BL.DTOs.BookingDTOs
         public string CakeDimensions { get; set; }
         public string CakeDedication { get; set; }
         public int ReservationShipping {  get; set; }
-        public int ReservationDate { get; set; }
-        public int CakeCost { get; set; }
+        public int ReservationDate { get; set; } 
     }
 }
