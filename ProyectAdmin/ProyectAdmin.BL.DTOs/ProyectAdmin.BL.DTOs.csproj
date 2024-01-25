@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="AdminDTOs\" />
-    <Folder Include="BookingDTOs\" />
     <Folder Include="ProductDTOs\" />
     <Folder Include="SaleDTOs\" />
     <Folder Include="PushesOrderDTOs\" />
