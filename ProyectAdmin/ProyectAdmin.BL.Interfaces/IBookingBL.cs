@@ -9,6 +9,7 @@ namespace ProyectAdmin.BL.Interfaces
 {
     public interface IBookingBL
     {
-        //Task<int> Create(BookingAddDTO)
+        Task<BookingCreateOutputDTO> Create(BookingCreateInputDTO pBookings);
+        Task<int> Create(BookingAddDTO pBookings);
     }
 }
