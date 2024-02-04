@@ -14,6 +14,6 @@ namespace ProyectAdmin.BL.Interfaces
         Task<int> Delete(int id);
         Task<SaleGetByIdDTO> GetById(int id);
         Task<List<SaleGetAllDTO>> GetAll();
-        Task<List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO pSales);
+        Task <List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO pSales);
     }
 }
