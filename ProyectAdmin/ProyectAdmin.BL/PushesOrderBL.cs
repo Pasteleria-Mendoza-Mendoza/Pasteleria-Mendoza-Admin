@@ -2,6 +2,7 @@
 using ProyectAdmin.EN;
 using ProyectAdmin.EN.Interfaces;
 using ProyectAdmin.BL.DTOs.PushesOrderDTOs;
+using ProyectAdmin.DAL;
 
 namespace ProyectAdmin.BL
 {
@@ -54,6 +55,7 @@ namespace ProyectAdmin.BL
             if (pushesOrders.Id == id)
             {
                 xpushesOrderDAL.Delete(pushesOrders);
+                return await xunitOfWork.SaveChangesAsync();
             }
             else
                 return 0;
@@ -66,7 +68,7 @@ namespace ProyectAdmin.BL
             {
                 Id = pushesOrders.Id
             };
-        } 
+        }
 
         public async Task<List<PushesOrderSearchOutputDTO>> Search(PushesOrderSearchInputDTO pushesOrder)
         {
@@ -83,12 +85,13 @@ namespace ProyectAdmin.BL
                 CakeCost = s.CakeCost,
                 State = s.State
             }));
+            return list;
         }
 
         public async Task<int> Update(PushesOrderUpdateDTO pushesOrder)
         {
-            PushesOrder pushesOrders = await xpushesOrderDAL.Update(pushesOrder.CustomerName);
-            if (pushesOrders.CustomerName == pushesOrder.CustomerName)
+            PushesOrder pushesOrders = await xpushesOrderDAL.GetById(pushesOrder.Id);
+            if (pushesOrders.Id == pushesOrders.Id)
             {
                 pushesOrders.CustomerName = pushesOrder.CustomerName;
                 pushesOrders.ContactNumber = pushesOrder.ContactNumber;
@@ -98,7 +101,11 @@ namespace ProyectAdmin.BL
                 pushesOrders.ReservationDate = pushesOrder.ReservationDate;
                 pushesOrders.CakeCost = pushesOrder.CakeCost;
                 pushesOrders.State = pushesOrder.State;
+                xpushesOrderDAL.Update(pushesOrders);
+                return await xunitOfWork.SaveChangesAsync();
             }
+            else
+                return 0;
         }
     }
 }

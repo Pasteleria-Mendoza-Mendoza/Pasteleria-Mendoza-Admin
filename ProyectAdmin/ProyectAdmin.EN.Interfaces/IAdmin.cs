@@ -7,6 +7,6 @@
         void Delete(Admin admin);
         Task<List<Admin>> Search(Admin admin);
         Task<Admin> GetById(int Id);
-        Task<List<Admin>> GetAll();
+        Task<Admin> Login(Admin admin);
     }
 }

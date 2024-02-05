@@ -33,7 +33,17 @@ namespace ProyectAdmin.DAL
 			return admin;
 		}
 
-		public async Task<List<Admin>> Search(Admin admin)
+        public async Task<Admin> Login(Admin admin)
+        {
+            Admin? admin = await dbContext.Admins
+                .FirstOrDefaultAsync(s => s.Email == xAdmin.Email && s.Password == xUser.Password);
+            if (admin != null)
+                return admin;
+            else
+                return new Admin();
+        }
+
+        public async Task<List<Admin>> Search(Admin admin)
 		{
 			IQueryable<Admin> query = dbContext.Admins.AsQueryable();
 

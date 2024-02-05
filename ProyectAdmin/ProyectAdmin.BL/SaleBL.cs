@@ -1,14 +1,7 @@
-﻿using ProyectAdmin.BL.DTOs.ProductDTOs;
-using ProyectAdmin.BL.DTOs.SaleDTOs;
+﻿using ProyectAdmin.BL.DTOs.SaleDTOs;
 using ProyectAdmin.BL.Interfaces;
-using ProyectAdmin.DAL;
 using ProyectAdmin.EN;
 using ProyectAdmin.EN.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectAdmin.BL
 {
@@ -80,16 +73,15 @@ namespace ProyectAdmin.BL
             };
         }
 
-        public async Task<List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO  pSales)
+        public async Task<List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO pSales)
         {
-            List<Sale> sales = await xSaleDAL.Search(new Sale { TypeCake = pSales.TypeCake});
-            List<ProductSearchOutputDTO> list = new List<ProductSearchOutputDTO>();
+            List<Sale> sales = await xSaleDAL.Search(new Sale { TypeCake = pSales.TypeCake, });
+            List<SaleSearchOutputDTO> list = new List<SaleSearchOutputDTO>();
             sales.ForEach(s => list.Add(new SaleSearchOutputDTO
             {
                 TypeCake = s.TypeCake,
             }));
             return list;
-            
         }
 
         public async Task<int> Update(SaleUpdateDTO pSales)

@@ -1,4 +1,5 @@
 ﻿using ProyectAdmin.BL.DTOs.SaleDTOs;
+using ProyectAdmin.BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace ProyectAdmin.BL.Interfaces
         Task<int> Delete(int id);
         Task<SaleGetByIdDTO> GetById(int id);
         Task<List<SaleGetAllDTO>> GetAll();
-        Task <List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO pSales);
+        Task<List<SaleSearchOutputDTO>> Search(SaleSearchInputDTO pSales);
     }
 }
