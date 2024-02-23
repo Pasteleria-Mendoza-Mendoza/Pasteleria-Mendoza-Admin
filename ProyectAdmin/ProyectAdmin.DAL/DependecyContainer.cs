@@ -10,9 +10,9 @@ namespace ProyectAdmin.DAL
 		public static IServiceCollection AddDALDependecies(this IServiceCollection services, IConfiguration configuration)
         {
 			services.AddDbContext<PADbContext>(options =>
-			options.UseSqlServer(configuration.GetConnectionString("conexionLA")));
+            options.UseSqlServer(configuration.GetConnectionString("conexion")));
 
-			services.AddScoped<IAdmin, AdminDAL>();
+            services.AddScoped<IAdmin, AdminDAL>();
 			services.AddScoped<IBooking, BookingDAL>();
 			services.AddScoped<IProduct, ProductDAL>();
 			services.AddScoped<IPushesOrder, PushesOrderDAL>();

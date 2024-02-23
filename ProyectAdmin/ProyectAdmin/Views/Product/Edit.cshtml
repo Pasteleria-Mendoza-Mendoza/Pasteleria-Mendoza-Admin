@@ -1,0 +1,61 @@
+﻿﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
+@model ProductUpdateDTO
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container mt-4">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #DD45DB; border-bottom: 1px solid #e0e0e0;">
+                <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Editar producto</h3>
+                <a asp-action="Index" asp-controller="Product" class="btn btn-danger ml-2">X</a>
+            </div>
+
+
+            <div class="card-body" style="background-color: #FFFFFF;">
+                <form asp-action="Edit" method="post" class="row">
+                    <div class="col-md-6">
+                        <!-- Columna 1 -->
+
+                        <input type="hidden" asp-for="IdProduct" />
+
+                        <div class="form-group">
+                            <label asp-for="NameProduct" class="font-weight-bold">Nombre</label>
+                            <input asp-for="NameProduct" class="form-control" />
+                            <span asp-validation-for="NameProduct" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Dimensions" class="font-weight-bold">Dimensiones</label>
+                            <input asp-for="Dimensions" class="form-control" />
+                            <span asp-validation-for="Dimensions" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Columna 2 -->
+                        <div class="form-group">
+                            <label asp-for="Quantity" class="font-weight-bold">Canridad</label>
+                            <input asp-for="Quantity" class="form-control" />
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DueDate" class="font-weight-bold">Fecha de vencimiento</label>
+                            <input asp-for="DueDate" class="form-control" type="date" />
+                            <span asp-validation-for="DueDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12" style="margin-top: 10px;">
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-warning">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

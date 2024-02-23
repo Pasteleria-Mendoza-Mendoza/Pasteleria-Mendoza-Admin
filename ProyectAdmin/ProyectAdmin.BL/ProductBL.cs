@@ -1,108 +1,161 @@
 ﻿using ProyectAdmin.BL.DTOs.ProductDTOs;
 using ProyectAdmin.BL.Interfaces;
-using ProyectAdmin.DAL;
 using ProyectAdmin.EN;
 using ProyectAdmin.EN.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectAdmin.BL
 {
     public class ProductBL : IProductBL
     {
-        readonly IProduct xproductDAL;
-        readonly IUnitOfWork xunitOfWork;
+        readonly IProduct _productDAL;
+        readonly IUnitOfWork _unitWork;
 
         public ProductBL(IProduct productDAL, IUnitOfWork unitOfWork)
         {
-            xproductDAL = productDAL;
-            xunitOfWork = unitOfWork;
+            _productDAL = productDAL;
+            _unitWork = unitOfWork;
         }
 
-        public async Task<int> Create(ProductAddDTO pProducts)
+        public async Task<ProductCreateOutputDTO> CreateProduct(ProductCreateInputDTO pProductos)
         {
-            Product product = new Product
             {
-                Id = pProducts.Id,
-                Name = pProducts.Name,
-                Quantity = pProducts.Quantity,
-                Dimensions = pProducts.Dimensions,
-                AcquisitionDate = pProducts.AcquisitionDate,
-                DueDate = pProducts.DueDate,
-            };
-            xproductDAL.Create(product);
-            return await xunitOfWork.SaveChangesAsync();
-        }
 
-        public async Task<int> Delete(int id)
-        {
-            Product products = await xproductDAL.GetById(id);
-            if (products.Id == id)
-            {
-                xproductDAL.Delete(products);
-                return await xunitOfWork.SaveChangesAsync();
+                Product newProduct = new Product()
+                {
+                    NameProduct = pProductos.NameProduct,
+                    Quantity = pProductos.Quantity,
+                    Dimensions = pProductos.Dimensions,
+                    AcquisitionDate = pProductos.AcquisitionDate,
+                    DueDate = pProductos.DueDate,
+                };
+
+                Product existingProduct = await _productDAL.GetByName(newProduct);
+
+
+                if (existingProduct != null)
+                {
+                    throw new ArgumentException("Ya existe un producto con este nombre.");
+                }
+
+
+                _productDAL.Create(newProduct);
+                await _unitWork.SaveChangesAsync();
+                ProductCreateOutputDTO productsOutput = new ProductCreateOutputDTO()
+                {
+                    IdProduct = newProduct.IdProduct,
+                    NameProduct = newProduct.NameProduct,
+                    Quantity = newProduct.Quantity,
+                    AcquisitionDate = newProduct.AcquisitionDate,
+                    DueDate = newProduct.DueDate
+                };
+
+                return productsOutput;
             }
-            else
-                return 0;
         }
 
-        public async Task<List<ProductGellAllDTO>> GetAll()
+        public async Task<ProductDeleteDTO> DeleteProduct(ProductDeleteDTO pProductos)
         {
-            List<Product> products = await xproductDAL.GetAll();
-            List<ProductGellAllDTO> list = new List<ProductGellAllDTO>();
-            products.ForEach(p => list.Add(new ProductGellAllDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Quantity = p.Quantity,
-                Dimensions = p.Dimensions,
-                AcquisitionDate = p.AcquisitionDate,
-                DueDate = p.DueDate
-            }));
-            return list;
-        }
+            Product isProduct = await _productDAL.GetOne(pProductos.IdProduct);
 
-        public async Task<ProductGetByIdDTO> GetById(int id)
-        {
-            Product products = await xproductDAL.GetById(id);
-            return new ProductGetByIdDTO()
+            if (isProduct.IdProduct == pProductos.IdProduct)
             {
-                Id = products.Id,
-                Name = products.Name,
-                Quantity = products.Quantity,
-                Dimensions = products.Dimensions,
-                AcquisitionDate = products.AcquisitionDate,
-                DueDate = products.DueDate
-            };
-        }
+                _productDAL.Delete(isProduct);
+                await _unitWork.SaveChangesAsync();
+                ProductDeleteDTO status = new ProductDeleteDTO()
+                {
+                    IsDeleted = true
+                };
 
-        public async Task<List<ProductSearchOutputDTO>> Search(ProductSearchInputDTO pProducts)
-        {
-            List<Product> products = await xproductDAL.Search(new Product { Name = pProducts.Name });
-            List<ProductSearchOutputDTO> list = new List<ProductSearchOutputDTO>();
-            products.ForEach(p => list.Add(new ProductSearchOutputDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-            }));
-            return list;
-        }
-
-        public async Task<int> Update(ProductUpdateDTO pProducts)
-        {
-            Product products = await xproductDAL.GetById(pProducts.Id);
-            if (products.Id == pProducts.Id)
-            {
-                products.Name = pProducts.Name;
-                xproductDAL.Update(products);
-                return await xunitOfWork.SaveChangesAsync();
+                return status;
             }
-            else
-                return 0;
+            throw new Exception($"Producto con {pProductos.IdProduct} no encontrado");
         }
+
+        public async Task<List<ProductSearchOutputDTO>> Search(ProductSearchOutputDTO pProductos)
+        {
+            List<Product> products = await _productDAL.Get(new Product
+            {
+                IdProduct = pProductos.IdProduct,
+                NameProduct = pProductos.NameProduct,
+                Quantity = pProductos.Quantity,
+                Dimensions = pProductos.Dimensions,
+                AcquisitionDate = pProductos.AcquisitionDate,
+                DueDate = pProductos.DueDate
+            
+            });
+
+            // Agrupar por BodegaId
+            var groupedProducts = products.GroupBy(p => p.IdProduct);
+
+            List<ProductSearchOutputDTO> result = new List<ProductSearchOutputDTO>();
+
+            foreach (var group in groupedProducts)
+            {
+                foreach (var product in group)
+                {
+                    result.Add(new ProductSearchOutputDTO
+                    {
+                        IdProduct = product.IdProduct,
+                        NameProduct = product.NameProduct,
+                        Quantity = product.Quantity,
+                        Dimensions = product.Dimensions,
+                        AcquisitionDate = product.AcquisitionDate,
+                        DueDate = product.DueDate
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<ProductGellAllDTO> SearchOne(ProductGetByIdDTO pProductos)
+        {
+            Product byProduct = new Product()
+            {
+                IdProduct = pProductos.IdProduct
+            };
+            Product isProduct = await _productDAL.GetOne(byProduct.IdProduct);
+
+            if (isProduct != null)
+            {
+
+                ProductGellAllDTO products = new ProductGellAllDTO()
+                {
+                    IdProduct = isProduct.IdProduct,
+                    NameProduct = isProduct.NameProduct,
+                    Quantity = isProduct.Quantity,
+                    Dimensions = isProduct.Dimensions,
+                    AcquisitionDate = isProduct.AcquisitionDate,
+                    DueDate = isProduct.DueDate
+
+                };
+                return products;
+            }
+            throw new Exception($"Producto con Id: {pProductos.IdProduct} no encontrado");
+        
+    }
+
+
+        public async Task UpdateProduct(ProductUpdateDTO pProductos)
+        {
+            Product productUpdate = await _productDAL.GetOne(pProductos.IdProduct);
+
+            if (productUpdate.IdProduct == pProductos.IdProduct)
+            {
+                productUpdate.NameProduct = pProductos.NameProduct;
+                productUpdate.Quantity = pProductos.Quantity;
+                productUpdate.Dimensions = pProductos.Dimensions;
+                productUpdate.AcquisitionDate = pProductos.AcquisitionDate;
+                productUpdate.DueDate = pProductos.DueDate;
+
+                _productDAL.Update(productUpdate);
+                await _unitWork.SaveChangesAsync();
+                // No necesitas retornar ningún valor aquí
+                return;
+            }
+
+            throw new Exception($"El producto con el Id: {pProductos.IdProduct} no fue encontrado");
+        }
+
     }
 }

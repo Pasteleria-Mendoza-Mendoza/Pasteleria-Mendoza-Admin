@@ -9,11 +9,11 @@ namespace ProyectAdmin.BL.Interfaces
 {
     public interface IProductBL
     {
-        Task<int> Create(ProductAddDTO pProducts);
-        Task<int> Update(ProductUpdateDTO pProducts);
-        Task<int> Delete(int id);
-        Task<ProductGetByIdDTO> GetById(int id);
-        Task<List<ProductGellAllDTO>> GetAll();
-        Task<List<ProductSearchOutputDTO>> Search(ProductSearchInputDTO pProducts);
+        Task<ProductCreateOutputDTO> CreateProduct(ProductCreateInputDTO pProductos);
+        Task UpdateProduct(ProductUpdateDTO pProductos);
+        Task<ProductDeleteDTO> DeleteProduct(ProductDeleteDTO pProductos);
+        Task<List<ProductSearchOutputDTO>> Search(ProductSearchOutputDTO pProductos);
+        Task<ProductGellAllDTO> SearchOne(ProductGetByIdDTO pProductos);
+
     }
 }

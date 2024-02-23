@@ -1,0 +1,40 @@
+﻿﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
+@model ProductGellAllDTO
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container mt-4">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #DD45DB; border-bottom: 1px solid #e0e0e0;">
+                <a asp-action="Index" asp-controller="Product" class="btn btn-danger ml-2">X</a>
+            </div>
+
+
+            <div class="card-body" style="background-color: #FFFFFF;">
+                <div>
+                    <dl class="row">
+                        <dt class="col-sm-3 text-muted">Nomre:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.NameProduct)</dd>
+
+                        <dt class="col-sm-3 text-muted">Dimsensiones:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Dimensions)</dd>
+
+                        <dt class="col-sm-3 text-muted">Cantidad:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Quantity)</dd>
+
+                        <dt class="col-sm-3 text-muted">Fecha de adquisición:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.AcquisitionDate)</dd>
+
+
+                        <dt class="col-sm-3 text-muted">Fcha de vencimiento:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.DueDate)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -44,8 +44,19 @@ namespace ProyectAdmin.Controllers
         {
             try
             {
-                int result = await _pushesOrderBL.Create(pushesOrderAddDTO);//Error en esta linea
-                if (result > 0)
+                // Crear un objeto PushesOrderCreateInputDTO utilizando datos de pushesOrderAddDTO u otra fuente
+                var createInputDTO = new PushesOrderCreateInputDTO
+                {
+                    CustomerName = pushesOrderAddDTO.CustomerName,
+                    ContactNumber = pushesOrderAddDTO.ContactNumber,
+                    // Otros campos según sea necesario
+                };
+
+                // Llamar al método Create en _pushesOrderBL y obtener el resultado
+                PushesOrderCreateOutputDTO result = await _pushesOrderBL.Create(createInputDTO);
+
+                // Verificar si el resultado es exitoso
+                if (result != null && result.Id > 0) // O cualquier condición que indique éxito
                     return RedirectToAction(nameof(Index));
                 else
                 {
@@ -59,6 +70,8 @@ namespace ProyectAdmin.Controllers
                 return View();
             }
         }
+
+
 
         // GET: PushesOrderController/Edit/5
         public async Task<IActionResult> Edit(int id)

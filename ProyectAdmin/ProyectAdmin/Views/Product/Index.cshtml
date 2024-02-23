@@ -1,0 +1,97 @@
+﻿﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
+@model List<ProductSearchOutputDTO> 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+    <!-- Agrega enlaces a Bootstrap si no están ya incluidos en tu proyecto -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.SuccessMessage
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(ViewBag.WarningMessage))
+    {
+        <div class="alert alert-warning" role="alert">
+            @ViewBag.WarningMessage
+        </div>
+    }
+    <!-- Vista Razor donde quieres mostrar la alerta -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #DD45DB; border-bottom: 1px solid #e0e0e0;">
+                <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Lista de productos</h3>
+                <!-- Mostrar el botón "Añadir" solo para usuarios con el rol "AdminGeneral" -->
+                <a asp-action="Create" asp-controller="Product" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Añadir
+                </a>
+        </div>
+
+        <div class="card-body" style="background-color: #FFFFFF;">
+             <div class="input-group mb-3">
+                <!-- Agregado un espacio entre la barra de búsqueda y el botón Filtrar -->
+                <div class="ml-2"></div>
+            </div>
+            <div class="table-responsive" style="background-color: #FFFFFF;">
+                <table class="table table-bordered table-hover">
+                    <thead style="background-color: #DD45DB; color: white;">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Area</th>
+                            <th>Stock</th>
+                                <th>Detalles</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var producto in Model)
+                        {
+                            <tr>
+                                <td>@producto.NameProduct</td>
+                                <td>@producto.Dimensions</td>
+                                <td>@producto.Quantity</td>
+                                <td>@producto.AcquisitionDate</td>
+                                <td>@producto.DueDate</td>
+                                <td class="text-center">
+
+                                        <!-- Mostrar botones "Editar" y "Eliminar" solo para usuarios con el rol "AdminGeneral" -->
+                                        <a asp-action="Details" asp-route-id="@producto.IdProduct" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i> 
+                                        </a>
+                                    <a asp-action="Edit" asp-route-id="@producto.IdProduct" class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i> 
+                                        </a>
+                                    <a asp-action="Delete" asp-route-id="@producto.IdProduct" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash-alt"></i> 
+                                        </a>                                  
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agrega scripts de Bootstrap si no están ya incluidos en tu proyecto -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

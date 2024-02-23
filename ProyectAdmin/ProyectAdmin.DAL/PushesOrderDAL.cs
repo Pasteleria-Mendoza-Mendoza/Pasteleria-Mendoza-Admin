@@ -50,5 +50,10 @@ namespace ProyectAdmin.DAL
 		{
 			dbContext.Update(pushesOrder);
 		}
-	}
+
+        public Task<PushesOrder> Update(string customerName)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

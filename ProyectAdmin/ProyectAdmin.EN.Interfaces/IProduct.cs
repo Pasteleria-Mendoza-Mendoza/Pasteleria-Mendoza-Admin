@@ -2,11 +2,12 @@
 {
 	public interface IProduct
     {
-        void Create(Product product);
-        void Update(Product product);
-        void Delete(Product product);
-        Task<List<Product>> Search(Product product);
-        Task<Product> GetById(int Id);
-        Task<List<Product>> GetAll();
+        void Create(Product pProductos);
+        void Update(Product pProductos);
+        void Delete(Product pProductos);
+        Task<Product> GetOne(int productoId);
+        Task<List<Product>> Get(Product pProductos);
+        Task<Product> GetByName(Product pProductos);
+
     }
 }

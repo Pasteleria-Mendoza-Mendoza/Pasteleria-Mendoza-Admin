@@ -1,0 +1,41 @@
+﻿﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
+@model ProductDeleteDTO
+
+<div class="container mt-4 d-flex flex-column align-items-center">
+    <div class="card" style="max-width: 400px;">
+
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #F74646; border-bottom: 1px solid #e0e0e0;">
+            <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Eliminar Producto</h3>
+        </div>
+
+        <div class="card-body" style="background-color: #FFFFFF;">
+            <h2 class="text-center">Confirmar Eliminación</h2>
+
+            <p class="text-center">¿Estás seguro de que deseas eliminar este producto?</p>
+
+            <div class="text-center">
+                <h4>Producto</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdProduct)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IdProduct)
+                    </dd>
+
+                    <!-- Agrega más campos según tus necesidades -->
+                </dl>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="IdProduct" />
+
+                    <div class="form-group text-center mt-4">
+                        <a asp-action="Index" class="btn btn-secondary" style="margin-right: 10px;">Cancelar</a>
+                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

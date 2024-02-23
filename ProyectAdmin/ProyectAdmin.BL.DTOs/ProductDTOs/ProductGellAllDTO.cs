@@ -8,11 +8,11 @@ namespace ProyectAdmin.BL.DTOs.ProductDTOs
 {
     public class ProductGellAllDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int IdProduct { get; set; }
+        public string NameProduct { get; set; }
         public int Quantity { get; set; }
         public string Dimensions { get; set; }
-        public int AcquisitionDate { get; set; }
-        public int DueDate { get; set; }
+        public DateTime AcquisitionDate { get; set; }
+        public DateTime DueDate { get; set; }
     }
 }

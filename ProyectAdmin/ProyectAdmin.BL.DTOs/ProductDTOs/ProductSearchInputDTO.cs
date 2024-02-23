@@ -8,6 +8,6 @@ namespace ProyectAdmin.BL.DTOs.ProductDTOs
 {
     public class ProductSearchInputDTO
     {
-        public string Name {  get; set; }
+        public string NameProduct {  get; set; }
     }
 }

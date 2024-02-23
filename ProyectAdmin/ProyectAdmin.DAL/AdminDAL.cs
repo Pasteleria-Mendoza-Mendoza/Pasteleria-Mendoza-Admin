@@ -36,7 +36,7 @@ namespace ProyectAdmin.DAL
         public async Task<Admin> Login(Admin admin)
         {
             Admin? admins = await dbContext.Admins
-                .FirstOrDefaultAsync(s => s.Email == xAdmin.Email && s.Password == xUser.Password);
+                .FirstOrDefaultAsync(s => s.Email == admin.Email && s.Password == admin.Password);
             if (admins != null)
                 return admins;
             else
