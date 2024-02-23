@@ -2,12 +2,15 @@
 {
 	public interface IPushesOrder
     {
-        void Create(PushesOrder pushesOrder);
-        void Update(PushesOrder pushesOrder);
-        void Delete(PushesOrder pushesOrder);
-        Task<List<PushesOrder>> Search(PushesOrder pushesOrder);
-        Task<PushesOrder> GetById(int Id);
-        Task<List<PushesOrder>> GetAll();
-        Task<PushesOrder> Update(string customerName);
+        void Create(PushesOrder pOrder);
+        Task<List<PushesOrder>> Search();
+        Task<PushesOrder> GetById(int id);
+        Task<List<PushesOrder>> SearchByDate(DateTime date);
+        Task DeleteOrden(int ordenId);
+
+        //METODOS PARA AUTORIZAR Y ACTUALIZAR
+        Task AutorizarOrden(int ordenId);
+        Task RechazarOrdenAsync(int ordenId);
+        Task ActualizarStock(int productoId, int cantidad);
     }
 }

@@ -1,111 +1,213 @@
-﻿using ProyectAdmin.BL.Interfaces;
+﻿using ProyectAdmin.BL.DTOs.OrdersDTOs;
+using ProyectAdmin.BL.Interfaces;
+using ProyectAdmin.DAL;
 using ProyectAdmin.EN;
 using ProyectAdmin.EN.Interfaces;
-using ProyectAdmin.BL.DTOs.PushesOrderDTOs;
-using ProyectAdmin.DAL;
+using static ProyectAdmin.EN.PushesOrder;
 
 namespace ProyectAdmin.BL
 {
     public class PushesOrderBL : IPushesOrderBL
     {
-        readonly IPushesOrder xpushesOrderDAL;
-        readonly IUnitOfWork xunitOfWork;
+        readonly IPushesOrder _pushesOrderDAL;
+        readonly IUnitOfWork _unitOfWork;
+        readonly IProduct _productDAL;
 
-        public PushesOrderBL(IPushesOrder pushesOrderDAL, IUnitOfWork unitOfWork)
+        public PushesOrderBL(IPushesOrder pushesOrderDAL, IUnitOfWork unitOfWork, IProduct product)
         {
-            xpushesOrderDAL = pushesOrderDAL;
-            xunitOfWork = unitOfWork;
+            _pushesOrderDAL = pushesOrderDAL;
+            _unitOfWork = unitOfWork;
+            _productDAL = product;
         }
 
-        public async Task<PushesOrderCreateOutputDTO> Create(PushesOrderCreateInputDTO pushesOrder)
+        public async Task<CreateOrderInputDTO> AddOrder(CreateOrderInputDTO orden)
         {
-            PushesOrder pushesOrders = new PushesOrder
+            try
             {
-                Id = pushesOrder.Id,
-                CustomerName = pushesOrder.CustomerName,
-                ContactNumber = pushesOrder.ContactNumber,
-                CakeQuantity = pushesOrder.CakeQuantity,
-                CakeDimensions = pushesOrder.CakeDimensions,
-                CakeDedication = pushesOrder.CakeDedication,
-                ReservationDate = pushesOrder.ReservationDate,
-                CakeCost = pushesOrder.CakeCost,
-                State = pushesOrder.State
-            };
+                PushesOrder newOrder = new PushesOrder()
+                {
+                    ReservationDate = DateTime.Now,
+                    IdProduct = orden.IdProduct,
+                    Names = orden.Names,
+                    LastNames = orden.LastNames,
+                    DUI = orden.DUI,
+                    Phone = orden.Phone,
+                    Amount = orden.Amount,
+                    Adress = orden.Adress,
+                    Dimension = orden.Dimension,
+                    DeliverDate = orden.DeliverDate,
+                    Dedication = orden.Dedication,
+                    Details = orden.Details,
+                    State = (byte)StateOrder.Pendiente,
+                    Cost = orden.Cost
+                };
 
-            xpushesOrderDAL.Create(pushesOrders);
-            await xunitOfWork.SaveChangesAsync();
-            PushesOrderCreateOutputDTO pushesOrdersOutput = new PushesOrderCreateOutputDTO
+                // Llama al método en tu DAL para agregar la nueva orden
+                _pushesOrderDAL.Create(newOrder);
+
+                // No es necesario llamar a SaveChanges aquí, ya que el método Create en tu DAL se encarga de guardar los cambios
+
+                return orden;
+            }
+            catch (Exception err)
             {
-                Id = pushesOrder.Id,
-                CustomerName = pushesOrder.CustomerName,
-                ContactNumber = pushesOrder.ContactNumber,
-                CakeQuantity = pushesOrder.CakeQuantity,
-                CakeDimensions = pushesOrder.CakeDimensions,
-                CakeDedication = pushesOrder.CakeDedication,
-                ReservationDate = pushesOrder.ReservationDate,
-                CakeCost = pushesOrder.CakeCost,
-                State = pushesOrder.State
-            };
-            return pushesOrdersOutput;
+                // Maneja la excepción según tus necesidades
+                Console.WriteLine($"Error en AddOrder: {err.Message}");
+                throw;
+            }
         }
 
-        public async Task<int> Delete(int id)
+
+        public async Task AutorizarPedidoAsync(int ordenId)
         {
-            PushesOrder pushesOrders = await xpushesOrderDAL.GetById(id);
-            if (pushesOrders.Id == id)
+            try
             {
-                xpushesOrderDAL.Delete(pushesOrders);
-                return await xunitOfWork.SaveChangesAsync();
+                // Obtener el pedido por ID
+                var pedido = await _pushesOrderDAL.GetById(ordenId);
+
+                // Validar si el pedido existe
+                if (pedido == null)
+                {
+                    throw new ArgumentException($"No se encontró un pedido con ID {ordenId}");
+                }
+
+                // Verificar si el pedido ya ha sido autorizado
+                if (pedido.State != (byte)PushesOrder.StateOrder.Pendiente)
+                {
+                    throw new InvalidOperationException($"El pedido con ID {ordenId} ya ha sido autorizado o está en un estado no válido para autorización.");
+                }
+                else
+                {
+                    // Obtener el producto asociado al pedido
+                    var producto = await _productDAL.GetOne(pedido.IdProduct);
+
+                    // Restar la cantidad del producto en el inventario
+                    producto.Quantity -= pedido.Amount;
+
+                    // Actualizar el producto en la capa de datos
+                     _productDAL.Update(producto);
+
+                    // Actualizar el estado del pedido
+                    pedido.State = (byte)PushesOrder.StateOrder.Autorizado;
+
+                    // Actualizar el pedido en la capa de datos
+                    await _pushesOrderDAL.AutorizarOrden(ordenId);
+
+                    // Guardar los cambios en la base de datos
+                    await _unitOfWork.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones según tus necesidades
+                Console.WriteLine($"Error al autorizar el pedido: {ex.Message}");
+                throw;
+            }
+        }
+
+
+        public async Task DeleteOrden(int ordeinId)
+        {
+            try
+            {
+                await _pushesOrderDAL.DeleteOrden(ordeinId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar la compra: {ex.Message}");
+            }
+        }
+
+        public async Task<List<GetAllOrderOutputDTO>> GetAllOrder(DateTime? specificDate = null)
+        {
+            List<PushesOrder> orders;
+
+            if (specificDate.HasValue)
+            {
+                orders = await _pushesOrderDAL.SearchByDate(specificDate.Value);
             }
             else
-                return 0;
-        }
-
-        public async Task<PushesOrderGetByIdDTO> GetById(int id)
-        {
-            PushesOrder pushesOrders = await xpushesOrderDAL.GetById(id);
-            return new PushesOrderGetByIdDTO()
             {
-                Id = pushesOrders.Id
-            };
-        }
-
-        public async Task<List<PushesOrderSearchOutputDTO>> Search(PushesOrderSearchInputDTO pushesOrder)
-        {
-            List<PushesOrder> pushesOrders = await xpushesOrderDAL.Search(new PushesOrder { CustomerName = pushesOrder.CustomerName });
-            List<PushesOrderSearchOutputDTO> list = new List<PushesOrderSearchOutputDTO>();
-            pushesOrders.ForEach(s => list.Add(new PushesOrderSearchOutputDTO
-            {
-                CustomerName = s.CustomerName,
-                ContactNumber = s.ContactNumber,
-                CakeQuantity = s.CakeQuantity,
-                CakeDimensions = s.CakeDimensions,
-                CakeDedication = s.CakeDedication,
-                ReservationDate = s.ReservationDate,
-                CakeCost = s.CakeCost,
-                State = s.State
-            }));
-            return list;
-        }
-
-        public async Task<int> Update(PushesOrderUpdateDTO pushesOrder)
-        {
-            PushesOrder pushesOrders = await xpushesOrderDAL.GetById(pushesOrder.Id);
-            if (pushesOrders.Id == pushesOrders.Id)
-            {
-                pushesOrders.CustomerName = pushesOrder.CustomerName;
-                pushesOrders.ContactNumber = pushesOrder.ContactNumber;
-                pushesOrders.CakeQuantity = pushesOrder.CakeQuantity;
-                pushesOrders.CakeDimensions = pushesOrder.CakeDimensions;
-                pushesOrders.CakeDedication = pushesOrder.CakeDedication;
-                pushesOrders.ReservationDate = pushesOrder.ReservationDate;
-                pushesOrders.CakeCost = pushesOrder.CakeCost;
-                pushesOrders.State = pushesOrder.State;
-                xpushesOrderDAL.Update(pushesOrders);
-                return await xunitOfWork.SaveChangesAsync();
+                orders = await _pushesOrderDAL.Search();
             }
-            else
-                return 0;
+
+            List<GetAllOrderOutputDTO> order = orders.Select(p => new GetAllOrderOutputDTO()
+            {
+                ReservationDate = DateTime.Now,
+                IdProduct = p.IdProduct,
+                Names = p.Names,
+                LastNames = p.LastNames,
+                DUI = p.DUI,
+                Phone = p.Phone,
+                Amount = p.Amount,
+                Adress = p.Adress,
+                Dimension = p.Dimension,
+                DeliverDate = DateTime.Now,
+                Dedication = p.Dedication,
+                Details = p.Details,
+                State = StateOrder.Pendiente,
+                Cost = p.Cost
+            }).ToList();
+
+            return order;
+        }
+
+        public async Task<GetAllOrderOutputDTO> GetOrderById(int Id)
+        {
+            PushesOrder isOrden = await _pushesOrderDAL.GetById(Id);
+            if (isOrden == null)
+                throw new Exception($"Order by id:{Id} is not exits");
+            GetAllOrderOutputDTO order = new GetAllOrderOutputDTO()
+            {
+                ReservationDate = DateTime.Now,
+                IdProduct = isOrden.IdProduct,
+                Names = isOrden.Names,
+                LastNames = isOrden.LastNames,
+                DUI = isOrden.DUI,
+                Phone = isOrden.Phone,
+                Amount = isOrden.Amount,
+                Adress = isOrden.Adress,
+                Dimension = isOrden.Dimension,
+                DeliverDate = DateTime.Now,
+                Dedication = isOrden.Dedication,
+                Details = isOrden.Details,
+                State = StateOrder.Pendiente,
+                Cost = isOrden.Cost
+            };
+            return order;
+        }
+
+        public async Task RechazarPedidoAsync(int ordenId)
+        {
+            try
+            {
+                // Obtener el pedido por ID
+                var pedido = await _pushesOrderDAL.GetById(ordenId);
+
+                // Validar si el pedido existe
+                if (pedido == null)
+                {
+                    throw new ArgumentException($"No se encontró un pedido con ID {ordenId}");
+                }
+
+                // Verificar si el pedido ya ha sido autorizado o rechazado
+                if (pedido.State != (byte)PushesOrder.StateOrder.Pendiente)
+                {
+                    throw new InvalidOperationException($"El pedido con ID {ordenId} ya ha sido autorizado o rechazado.");
+                }
+
+                // Cambiar el estado del pedido a "Rechazado"
+                pedido.State = (byte)PushesOrder.StateOrder.Rechazado;
+
+                // Guardar los cambios en la base de datos
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepciones según tus necesidades
+                Console.WriteLine($"Error al rechazar el pedido: {ex.Message}");
+                throw;
+            }
         }
     }
 }

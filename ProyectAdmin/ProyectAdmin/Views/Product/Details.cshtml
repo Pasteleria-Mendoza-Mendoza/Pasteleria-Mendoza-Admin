@@ -1,4 +1,5 @@
-﻿@model ProyectAdmin.BL.DTOs.ProductDTOs.ProductGellAllDTO
+﻿@model ProyectAdmin.BL.DTOs.ProductOrderViewModel;
+
 
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
         <div class="row">
             <!-- Columna de la imagen -->
             <div class="col-md-6">
-                <img src="http://localhost:5000/images/@Model.ImageUrl" class="product-image" alt="@Model.NameProduct">
+                <img src="http://localhost:5000/images/@Model.Product.ImageUrl" class="product-image" alt="@Model.Product.NameProduct">
             </div>
 
             <!-- Columna del formulario -->
@@ -61,43 +62,57 @@
                     <h4 class="form-heading">Reservar Producto</h4>
 
                     <!-- Formulario para ingresar datos -->
-                    <form>
+                    <form method="post" asp-controller="PushesOrder" asp-action="AddOrder">
                         <!-- Agrega los campos del formulario aquí -->
                         <div class="form-group">
-                            <label for="inputName">Nombres:</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus nombres">
+                            <label asp-for="@Model.Order.Names" class="form-label">Nombres:</label>
+                            <input asp-for="@Model.Order.Names" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Names" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Apellidos:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese sus apellido">
+                            <label asp-for="@Model.Order.LastNames" class="form-label">Apellidos:</label>
+                            <input asp-for="@Model.Order.LastNames" class="form-control" />
+                            <span asp-validation-for="@Model.Order.LastNames" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Numero de DUI:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese el numero de dui">
+                            <label asp-for="@Model.Order.DUI" class="form-label">DUI:</label>
+                            <input asp-for="@Model.Order.DUI" class="form-control" />
+                            <span asp-validation-for="@Model.Order.DUI" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Direccion:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese la direccion">
+                            <label asp-for="@Model.Order.Adress" class="form-label">Direccion:</label>
+                            <input asp-for="@Model.Order.Adress" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Adress" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Numero de contacto:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese su numero de telefono">
+                            <label asp-for="@Model.Order.Phone" class="form-label">Numero de contacto:</label>
+                            <input asp-for="@Model.Order.Phone" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Phone" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Cantidad a reservar:</label>
-                            <input type="number" class="form-control" id="inputDimensions" placeholder="Ingrese las cantidades a reservar">
+                            <label asp-for="@Model.Order.Amount" class="form-label">Cantidad a reservar:</label>
+                            <input asp-for="@Model.Order.Amount" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Amount" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Dimension del pastel:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese las dimensiones">
+                            <label asp-for="@Model.Order.Dimension" class="form-label">Dimension del pastel:</label>
+                            <input asp-for="@Model.Order.Dimension" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Dimension" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Dedicatoria:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese el texto de dedicatotia(opcional)">
+                            <label asp-for="@Model.Order.Dedication" class="form-label">Dedicatoria:</label>
+                            <input asp-for="@Model.Order.Dedication" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Dedication" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="inputDimensions">Mas detalles:</label>
-                            <input type="text" class="form-control" id="inputDimensions" placeholder="Mas detalles para la reserva">
+                            <label asp-for="@Model.Order.DeliverDate" class="form-label">Elegir fecha para la entegra:</label>
+                            <input asp-for="@Model.Order.DeliverDate" class="form-control" type="date" />
+                            <span asp-validation-for="@Model.Order.DeliverDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Order.Details" class="form-label">Mas detalles:</label>
+                            <input asp-for="@Model.Order.Details" class="form-control" />
+                            <span asp-validation-for="@Model.Order.Details" class="text-danger"></span>
                         </div>
                         <!-- Agrega más campos según sea necesario -->
 

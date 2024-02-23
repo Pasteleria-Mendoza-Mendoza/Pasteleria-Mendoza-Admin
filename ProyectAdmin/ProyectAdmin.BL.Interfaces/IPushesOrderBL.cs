@@ -1,13 +1,14 @@
-﻿using ProyectAdmin.BL.DTOs.PushesOrderDTOs;
+﻿using ProyectAdmin.BL.DTOs.OrdersDTOs;
 
 namespace ProyectAdmin.BL.Interfaces
 {
     public interface IPushesOrderBL
     {
-        Task<PushesOrderCreateOutputDTO> Create(PushesOrderCreateInputDTO pushesOrder);
-        Task<int> Update(PushesOrderUpdateDTO pushesOrder);
-        Task<int> Delete(int id);
-        Task<PushesOrderGetByIdDTO> GetById(int id);
-        Task<List<PushesOrderSearchOutputDTO>> Search(PushesOrderSearchInputDTO pushesOrder);
+        public Task<GetAllOrderOutputDTO> GetOrderById(int Id);
+        public Task<List<GetAllOrderOutputDTO>> GetAllOrder(DateTime? specificDate = null);
+        public Task<CreateOrderInputDTO> AddOrder(CreateOrderInputDTO orden);
+        Task DeleteOrden(int ordeinId);
+        Task AutorizarPedidoAsync(int ordenId);
+        Task RechazarPedidoAsync(int ordenId);
     }
 }

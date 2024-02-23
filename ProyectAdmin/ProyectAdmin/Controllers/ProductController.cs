@@ -4,6 +4,8 @@ using ProyectAdmin.BL.DTOs.ProductDTOs;
 using Inventory.Web.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using ProyectAdmin.BL;
+using ProyectAdmin.BL.DTOs.OrdersDTOs;
+using ProyectAdmin.BL.DTOs;
 
 namespace ProyectAdmin.Controllers
 {
@@ -37,10 +39,21 @@ namespace ProyectAdmin.Controllers
         // GET: Productos/Details/5
         public async Task<IActionResult> Details(int id)
         {
-
+            // Obtener el detalle del producto
             ProductGetByIdDTO productId = new ProductGetByIdDTO { IdProduct = id };
             ProductGellAllDTO producto = await _ProductBL.SearchOne(productId);
-            return View(producto);
+
+            // Crear una instancia del modelo de órdenes
+            var orderModel = new CreateOrderInputDTO();
+
+            // Crear una instancia de la clase de vista personalizada y asignar los modelos
+            var viewModel = new ProductOrderViewModel
+            {
+                Product = producto,
+                Order = orderModel
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> DetailsPartial(int id)

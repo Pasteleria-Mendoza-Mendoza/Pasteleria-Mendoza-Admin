@@ -1,0 +1,129 @@
+﻿
+@model IEnumerable<ProyectAdmin.BL.DTOs.OrdersDTOs.GetAllOrderOutputDTO>
+@using ProyectAdmin.EN;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <!-- Agrega enlaces a Bootstrap si no están ya incluidos en tu proyecto -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+<body>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header" style="background-color: #343a40; border-bottom: 1px solid #e0e0e0;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Lista de orden</h3>
+                </div>
+            </div>
+            <div class="card-body" style="background-color: #FFFFFF;">
+                <div class="d-flex justify-content-between mb-3">
+                    <form asp-controller="SolicitudOrden" asp-action="Index" method="get" class="form-inline">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="fecha" style="background-color: #343a40; color: white;">Fecha de Orden:</label>
+                            </div>
+                            <input type="date" id="fecha" name="specificDate" class="form-control" style="max-width: 175px;">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-filter"></i> Filtrar
+                                </button>
+                            </div>
+                        </div>
+                    </form>     
+                </div>
+                @if (Model.Any())
+                {
+                    <div class="table-responsive" style="background-color: #FFFFFF;">
+                        <table class="table table-bordered table-hover">
+                            <thead style="background-color: #343a40;">
+                                <tr style=" color:white ">
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Fecha de reserva</th>
+                                    <th class="text-center">Estado</th>
+
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var solicitud in Model)
+                                {
+                                    <tr>
+                                        <td>@solicitud.nombreProducto</td>
+                                        <td>@solicitud.Amount</td>
+                                        <td>@solicitud.ReservationDate</td>
+                                        <td>@solicitud.State</td>
+                                        <td class="text-center">
+                                            @if (solicitud.State == PushesOrder.StateOrder.Pendiente)
+                                            {
+                                                <span class="badge badge-warning">Pendiente</span>
+                                            }
+                                            else if (solicitud.State == PushesOrder.StateOrder.Autorizado)
+                                            {
+                                                <span class="badge badge-success">Autorizado</span>
+                                            }
+                                            else if (solicitud.State == PushesOrder.StateOrder.Rechazado)
+                                            {
+                                                <span class="badge badge-danger">Rechazado</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-secondary">Estado Desconocido</span>
+                                            }
+                                        </td>
+
+
+                                        <td class="text-center">
+                           
+                                                <form asp-action="RechazarOrden" asp-route-id="@solicitud.IdOrder" method="post" style="display: inline;">
+                                                    <button type="submit" class="btn btn-danger  btn-sm">Rechazar</button>
+                                                </form>
+                                                <form asp-action="AutorizarOrden" asp-route-id="@solicitud.IdOrder" method="post" style="display: inline;">
+                                                    <button type="submit" class="btn btn-success  btn-sm">Autorizar</button>
+                                                </form>
+                 
+                                                <form asp-action="Eliminar" asp-controller="SolicitudOrden" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta orden?')">
+                                                    <input type="hidden" name="id" value="@solicitud.IdOrder" />
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="far fa-trash-alt"></i> Eliminar
+                                                    </button>
+                                                </form>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p>No hay compras registradas.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Agrega scripts de Bootstrap si no están ya incluidos en tu proyecto -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

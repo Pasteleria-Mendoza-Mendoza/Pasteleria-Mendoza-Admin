@@ -10,7 +10,7 @@ namespace ProyectAdmin.DAL
 		public DbSet<Admin> Admins { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
 		public DbSet<Product> Products { get; set; }
-		public DbSet<PushesOrder> PushesOrders { get; set; }
+		public DbSet<PushesOrder> PushesOrder { get; set; }
 		public DbSet<Sale> Sales { get; set; }
 
 	}

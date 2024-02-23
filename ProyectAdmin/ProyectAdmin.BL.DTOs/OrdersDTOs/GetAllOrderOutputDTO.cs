@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using static ProyectAdmin.EN.PushesOrder;
 
-namespace ProyectAdmin.EN
+namespace ProyectAdmin.BL.DTOs.OrdersDTOs
 {
-	public class PushesOrder
+    public class GetAllOrderOutputDTO
     {
-        [Key]
         public int IdOrder { get; set; }
-
-        [ForeignKey("Product")]
         public int IdProduct { get; set; }
+        public string nombreProducto { get; set; }
         public string Names { get; set; }
         public string LastNames { get; set; }
         public string DUI { get; set; }
@@ -22,13 +19,6 @@ namespace ProyectAdmin.EN
         public string Dedication { get; set; }
         public string Details { get; set; }
         public decimal Cost { get; set; }
-        public byte State { get; set; }
-        public enum StateOrder : byte
-        {
-            Pendiente = 1,
-            Autorizado = 2,
-            Rechazado = 3
-        }
+        public StateOrder State { get; set; }
     }
 }
-
