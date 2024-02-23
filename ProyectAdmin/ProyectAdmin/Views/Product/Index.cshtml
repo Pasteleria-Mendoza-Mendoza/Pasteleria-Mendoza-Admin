@@ -22,31 +22,56 @@
         @TempData["ErrorMessage"]
     </div>
 }
+<style>
+    .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 
-<h1>Index</h1>
+    .card-img-top {
+        height: 200px; /* Establece una altura fija para todas las imágenes */
+        object-fit: cover; /* La imagen se ajustará para cubrir todo el espacio disponible */
+    }
 
-<p>
-    <a asp-action="Create" asp-controller="Product" class="btn btn-warning"><i class="bi bi-arrow-left"></i>Create new product</a>
-</p>
-<div class="row">
-    <div class="row">
+    .card-body {
+        flex: 1; /* El cuerpo de la tarjeta ocupará todo el espacio disponible verticalmente */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centra el contenido verticalmente */
+    }
+
+    .titulo-grande {
+        font-size: 2.5rem; /* Tamaño grande para el título */
+        margin-bottom: 20px; /* Espacio inferior */
+    }
+
+</style>
+<
+<h1 class="text-center titulo-grande">PRODUCTOS DE NUESTRO CATÁLOGO</h1>
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <a asp-action="Create" asp-controller="Product" class="btn btn-warning"><i class="bi bi-plus"></i> Agregar Nuevo Producto</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         @foreach (var item in Model)
         {
-            <div class="col-md-4">
+            <div class="col">
                 <div class="card">
+                    <img class="card-img-top" src="http://localhost:5000/images/@item.ImageUrl" alt="Product Image" />
                     <div class="card-body">
                         <h5 class="card-title">@item.NameProduct</h5>
-                        <img width="250" height="150" src="http://localhost:7150/images/@item.ImageUrl" />
-                        <p class="card-text">@item.Price</p>
-                        <p class="card-text"><strong>@item.Price.ToString("C")</strong></p>
+                        <p class="card-text">@item.Price.ToString("C")</p>
                         <p class="card-text"><strong>Stock: </strong>@item.Quantity</p>
-                        <a asp-action="Details" asp-route-id="@item.IdProduct" class="btn btn-info">View details</a>
-                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-warning"><i class="bi bi-arrow-left"></i>Edit</a>
-                        <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-warning"><i class="bi bi-arrow-left"></i>Delete</a>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Details" asp-route-id="@item.IdProduct" class="btn btn-outline-dark">Ver Detalles</a>
+                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-pencil"></i> Editar</a>
+                        <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-trash"></i> Eliminar</a>
                     </div>
                 </div>
             </div>
         }
     </div>
-
-</div>

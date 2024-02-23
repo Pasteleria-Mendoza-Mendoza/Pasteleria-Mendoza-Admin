@@ -1,40 +1,131 @@
-﻿﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
-@model ProductGellAllDTO
-
+﻿@model ProyectAdmin.BL.DTOs.ProductDTOs.ProductGellAllDTO
 
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Detalle del Producto</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px; /* Espacio entre la imagen y el formulario */
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .form-heading {
+            margin-bottom: 20px;
+        }
+
+        .product-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+            .product-info h4 {
+                color: #343a40;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .product-info ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .product-info li {
+                margin-bottom: 10px;
+            }
+
+                .product-info li strong {
+                    font-weight: bold;
+                }
+    </style>
+</head>
 <body>
     <div class="container mt-4">
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #da9f5b; border-bottom: 1px solid #e0e0e0;">
-                <a asp-action="Index" asp-controller="Product" class="btn btn-danger ml-2">X</a>
+        <div class="row">
+            <!-- Columna de la imagen -->
+            <div class="col-md-6">
+                <img src="http://localhost:5000/images/@Model.ImageUrl" class="product-image" alt="@Model.NameProduct">
             </div>
 
+            <!-- Columna del formulario -->
+            <div class="col-md-6">
+                <div class="card product-details">
+                    <!-- Texto "Reservar Producto" arriba del formulario -->
+                    <h4 class="form-heading">Reservar Producto</h4>
 
-            <div class="card-body" style="background-color: #FFFFFF;">
-                <div>
-                    <dl class="row">
-                        <dt class="col-sm-3 text-muted">Nomre:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.NameProduct)</dd>
+                    <!-- Formulario para ingresar datos -->
+                    <form>
+                        <!-- Agrega los campos del formulario aquí -->
+                        <div class="form-group">
+                            <label for="inputName">Nombres:</label>
+                            <input type="text" class="form-control" id="inputName" placeholder="Ingrese sus nombres">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Apellidos:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese sus apellido">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Numero de DUI:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese el numero de dui">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Direccion:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese la direccion">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Numero de contacto:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese su numero de telefono">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Cantidad a reservar:</label>
+                            <input type="number" class="form-control" id="inputDimensions" placeholder="Ingrese las cantidades a reservar">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Dimension del pastel:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese las dimensiones">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Dedicatoria:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Ingrese el texto de dedicatotia(opcional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDimensions">Mas detalles:</label>
+                            <input type="text" class="form-control" id="inputDimensions" placeholder="Mas detalles para la reserva">
+                        </div>
+                        <!-- Agrega más campos según sea necesario -->
 
-                        <dt class="col-sm-3 text-muted">Dimsensiones:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Dimensions)</dd>
-
-                        <dt class="col-sm-3 text-muted">Cantidad:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Quantity)</dd>
-
-                        <dt class="col-sm-3 text-muted">Fecha de adquisición:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.AcquisitionDate)</dd>
-
-
-                        <dt class="col-sm-3 text-muted">Fcha de vencimiento:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.DueDate)</dd>
-                    </dl>
+                        <button type="submit" class="btn btn-outline-dark">Reservar</button>
+                        <a asp-action="Index" asp-controller="Product" class="btn btn-outline-dark"><i class="bi bi-arrow-left"></i>Back to list</a>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- Información del producto -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h4>Información del Producto</h4>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Cantidad:</strong> @Model.Dimensions</li>
+                    <li class="list-group-item"><strong>Cantidad:</strong> @Model.Quantity</li>
+                    <li class="list-group-item"><strong>Fecha de adquisición:</strong> @Model.AcquisitionDate.ToString("yyyy-MM-dd")</li>
+                    <li class="list-group-item"><strong>Fecha de vencimiento:</strong> @Model.DueDate.ToString("yyyy-MM-dd")</li>
+                    <li class="list-group-item"><strong>Precio:</strong> @Model.Price.ToString("C")</li>
+                    <!-- Agrega cualquier otra información que desees mostrar aquí -->
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
+
+
+

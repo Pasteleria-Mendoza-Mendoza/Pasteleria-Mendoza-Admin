@@ -20,14 +20,14 @@ namespace ProyectAdmin.Controllers
 
         public async Task<IActionResult> Index(ProductSearchOutputDTO productos)
         {
-            if (TempData.ContainsKey("SuccessMessage"))
-            {
-                ViewBag.SuccessMessage = TempData["SuccessMessage"];
-            }
-            if (TempData.ContainsKey("WarningMessage"))
-            {
-                ViewBag.WarningMessage = TempData["WarningMessage"];
-            }
+          //  if (TempData.ContainsKey("SuccessMessage"))
+            //{
+              //  ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            //}
+            //if (TempData.ContainsKey("WarningMessage"))
+            //{
+              //  ViewBag.WarningMessage = TempData["WarningMessage"];
+            //}
             var list = await _ProductBL.Search(productos);
             return View(list);
         }
