@@ -8,5 +8,7 @@
         public string Dimensions { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public DateTime DueDate { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal Price { get; set; }
     }
 }

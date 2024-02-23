@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectAdmin.BL.Interfaces;
 using ProyectAdmin.BL.DTOs.ProductDTOs;
+using Inventory.Web.Controllers;
+using Microsoft.AspNetCore.Hosting;
+using ProyectAdmin.BL;
 
 namespace ProyectAdmin.Controllers
 {
     public class ProductController : Controller
     {
         readonly IProductBL _ProductBL;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IProductBL productBL)
+        public ProductController(IProductBL productBL, IWebHostEnvironment webHostEnvironment)
         {
             _ProductBL = productBL;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index(ProductSearchOutputDTO productos)
@@ -23,17 +28,8 @@ namespace ProyectAdmin.Controllers
             {
                 ViewBag.WarningMessage = TempData["WarningMessage"];
             }
-            try
-            {
-                List<ProductSearchOutputDTO> list = await _ProductBL.Search(productos);
-         
-                return View(list);
-            }
-            catch (Exception)
-            {
-                // Manejo de error
-                return View("Error");
-            }
+            var list = await _ProductBL.Search(productos);
+            return View(list);
         }
 
 
@@ -50,35 +46,61 @@ namespace ProyectAdmin.Controllers
         // GET: Productos/Create
         public ActionResult Create()
         {
+            ViewBag.ErrorMenssge = "";
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ProductCreateInputDTO pProductos, string Nombre)
+        public async Task<ActionResult> Create(ImageInputDTO pProducts)
         {
             try
             {
+                string fileName = null;
 
-                // Intenta crear el producto
-                ProductCreateOutputDTO result = await _ProductBL.CreateProduct(pProductos);
+                ProductCreateInputDTO product = new ProductCreateInputDTO()
+                {
+                    NameProduct = pProducts.NameProduct,
+                    Dimensions = pProducts.Dimensions,
+                    Quantity = pProducts.Quantity,
+                    Price = pProducts.Price,
+                    AcquisitionDate = pProducts.AcquisitionDate,
+                    DueDate = pProducts.DueDate
+                };
 
-                // Si se crea el producto correctamente, redirige a la acción Index con un mensaje de éxito
-                TempData["SuccessMessage"] = $"Producto {pProductos.NameProduct} creado exitosamente!";
-                return RedirectToAction(nameof(Index));
-            }
-            catch (ArgumentException ex)
-            {
-                // Si ya existe un producto con el mismo nombre, muestra un mensaje de error en la vista
-                ViewBag.ErrorMessage = ex.Message;
-                return View(pProductos);
+                if (pProducts.ImageUrl != null)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(pProducts.ImageUrl.FileName);
+                    string filePath = Path.Combine(uploadsFolder, fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await pProducts.ImageUrl.CopyToAsync(fileStream);
+                    }
+                    product.ImageUrl = fileName;
+                }
+
+                ProductCreateOutputDTO result = await _ProductBL.CreateProduct(product);
+                if (result != null)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ViewBag.ErrorMessage = "No se pudo agregar el registro";
+                    return View(pProducts);
+                }
             }
             catch (Exception ex)
             {
-                // Manejo de errores específicos o registro de errores
-                ViewBag.ErrorMessage = $"Error al intentar crear el producto: {ex.Message}";
-                return View(pProductos);
+                ViewBag.ErrorMessage = "Se produjo un error al procesar la solicitud: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    ViewBag.InnerErrorMessage = "Detalles del error interno: " + ex.InnerException.Message;
+                }
+                return View(new ProductCreateInputDTO());
             }
+
+
         }
+
 
 
         // Resto de las acciones (Edit y Delete)...

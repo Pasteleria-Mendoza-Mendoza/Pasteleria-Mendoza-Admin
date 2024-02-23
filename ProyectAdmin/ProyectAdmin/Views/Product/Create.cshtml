@@ -11,14 +11,14 @@
     }
     <div class="container mt-4">
         <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #DD45DB; border-bottom: 1px solid #e0e0e0;">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #da9f5b; border-bottom: 1px solid #e0e0e0;">
                 <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Crear nuevo producto</h3>
                 <a asp-action="Index" asp-controller="Product" class="btn btn-danger ml-2">X</a>
             </div>
 
 
             <div class="card-body" style="background-color: #FFFFFF;">
-                <form asp-action="Create" method="post" class="row">
+                <form asp-action="Create" asp-controller="Product" method="post" class="row" enctype="multipart/form-data">
                     <div class="col-md-6">
                         <!-- Columna 1 -->
                         <div class="form-group">
@@ -30,6 +30,15 @@
                             <label asp-for="Dimensions" class="font-weight-bold">Dimensiones</label>
                             <input asp-for="Dimensions" class="form-control" />
                             <span asp-validation-for="Dimensions" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlFile1">Imagen</label>
+                            <input type="file" name="ImageUrl" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Price</label>
+                            <input asp-for="Price" type="text" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -54,12 +63,8 @@
 
                     </div>
 
-
-                    <div class="col-12" style="margin-top: 10px;">
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-warning">Guardar</button>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i>Create</button>
+                    <a asp-action="Index" asp-controller="Product" class="btn btn-warning"><i class="bi bi-arrow-left"></i>Back tolist</a>
                 </form>
             </div>
         </div>

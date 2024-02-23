@@ -27,6 +27,8 @@ namespace ProyectAdmin.BL
                     Dimensions = pProductos.Dimensions,
                     AcquisitionDate = pProductos.AcquisitionDate,
                     DueDate = pProductos.DueDate,
+                    Price = pProductos.Price,
+                    ImageUrl = pProductos.ImageUrl
                 };
 
                 Product existingProduct = await _productDAL.GetByName(newProduct);
@@ -46,7 +48,9 @@ namespace ProyectAdmin.BL
                     NameProduct = newProduct.NameProduct,
                     Quantity = newProduct.Quantity,
                     AcquisitionDate = newProduct.AcquisitionDate,
-                    DueDate = newProduct.DueDate
+                    DueDate = newProduct.DueDate,
+                     Price = newProduct.Price,
+                    ImageUrl = newProduct.ImageUrl
                 };
 
                 return productsOutput;
@@ -80,8 +84,10 @@ namespace ProyectAdmin.BL
                 Quantity = pProductos.Quantity,
                 Dimensions = pProductos.Dimensions,
                 AcquisitionDate = pProductos.AcquisitionDate,
-                DueDate = pProductos.DueDate
-            
+                DueDate = pProductos.DueDate,
+                Price = pProductos.Price,
+                ImageUrl = pProductos.ImageUrl
+
             });
 
             // Agrupar por BodegaId
@@ -100,7 +106,9 @@ namespace ProyectAdmin.BL
                         Quantity = product.Quantity,
                         Dimensions = product.Dimensions,
                         AcquisitionDate = product.AcquisitionDate,
-                        DueDate = product.DueDate
+                        DueDate = product.DueDate,
+                          Price = product.Price,
+                        ImageUrl = product.ImageUrl
                     });
                 }
             }
@@ -126,7 +134,9 @@ namespace ProyectAdmin.BL
                     Quantity = isProduct.Quantity,
                     Dimensions = isProduct.Dimensions,
                     AcquisitionDate = isProduct.AcquisitionDate,
-                    DueDate = isProduct.DueDate
+                    DueDate = isProduct.DueDate,
+                    Price = isProduct.Price,
+                    ImageUrl = isProduct.ImageUrl
 
                 };
                 return products;
@@ -147,6 +157,7 @@ namespace ProyectAdmin.BL
                 productUpdate.Dimensions = pProductos.Dimensions;
                 productUpdate.AcquisitionDate = pProductos.AcquisitionDate;
                 productUpdate.DueDate = pProductos.DueDate;
+                productUpdate.Price = pProductos.Price;
 
                 _productDAL.Update(productUpdate);
                 await _unitWork.SaveChangesAsync();

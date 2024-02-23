@@ -14,5 +14,6 @@ namespace ProyectAdmin.BL.DTOs.ProductDTOs
         public string Dimensions { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public DateTime DueDate { get; set; }
+        public decimal Price { get; set; }
     }
 }
