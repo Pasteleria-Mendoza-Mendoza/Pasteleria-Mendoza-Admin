@@ -52,10 +52,10 @@
                     <thead style="background-color: #DD45DB; color: white;">
                         <tr>
                             <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Area</th>
-                            <th>Stock</th>
-                                <th>Detalles</th>
+                            <th>Dimensiones</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Entrada</th>
+                                <th>Fecha de vencimiento</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -64,7 +64,7 @@
                         {
                             <tr>
                                 <td>@producto.NameProduct</td>
-                                <td>@producto.Dimensions</td>
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">@producto.Dimensions</td>
                                 <td>@producto.Quantity</td>
                                 <td>@producto.AcquisitionDate</td>
                                 <td>@producto.DueDate</td>
