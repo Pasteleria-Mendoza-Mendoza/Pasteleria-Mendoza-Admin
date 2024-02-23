@@ -12,6 +12,7 @@ namespace ProyectAdmin.BL.DTOs.ProductDTOs
         public string NameProduct { get; set; }
         public int Quantity { get; set; }
         public string Dimensions { get; set; }
+        public string Description { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public DateTime DueDate { get; set; }
         public string ImageUrl { get; set; }

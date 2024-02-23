@@ -25,6 +25,7 @@ namespace ProyectAdmin.BL
                     NameProduct = pProductos.NameProduct,
                     Quantity = pProductos.Quantity,
                     Dimensions = pProductos.Dimensions,
+                    Description = pProductos.Description,
                     AcquisitionDate = pProductos.AcquisitionDate,
                     DueDate = pProductos.DueDate,
                     Price = pProductos.Price,
@@ -47,6 +48,8 @@ namespace ProyectAdmin.BL
                     IdProduct = newProduct.IdProduct,
                     NameProduct = newProduct.NameProduct,
                     Quantity = newProduct.Quantity,
+                    Dimensions = newProduct.Dimensions,
+                    Description = newProduct.Description,
                     AcquisitionDate = newProduct.AcquisitionDate,
                     DueDate = newProduct.DueDate,
                      Price = newProduct.Price,
@@ -83,6 +86,7 @@ namespace ProyectAdmin.BL
                 NameProduct = pProductos.NameProduct,
                 Quantity = pProductos.Quantity,
                 Dimensions = pProductos.Dimensions,
+                Description = pProductos.Description,
                 AcquisitionDate = pProductos.AcquisitionDate,
                 DueDate = pProductos.DueDate,
                 Price = pProductos.Price,
@@ -105,6 +109,7 @@ namespace ProyectAdmin.BL
                         NameProduct = product.NameProduct,
                         Quantity = product.Quantity,
                         Dimensions = product.Dimensions,
+                        Description = product.Description,
                         AcquisitionDate = product.AcquisitionDate,
                         DueDate = product.DueDate,
                           Price = product.Price,
@@ -133,6 +138,7 @@ namespace ProyectAdmin.BL
                     NameProduct = isProduct.NameProduct,
                     Quantity = isProduct.Quantity,
                     Dimensions = isProduct.Dimensions,
+                    Description = isProduct.Description,
                     AcquisitionDate = isProduct.AcquisitionDate,
                     DueDate = isProduct.DueDate,
                     Price = isProduct.Price,
@@ -155,6 +161,7 @@ namespace ProyectAdmin.BL
                 productUpdate.NameProduct = pProductos.NameProduct;
                 productUpdate.Quantity = pProductos.Quantity;
                 productUpdate.Dimensions = pProductos.Dimensions;
+                productUpdate.Description = pProductos.Description;
                 productUpdate.AcquisitionDate = pProductos.AcquisitionDate;
                 productUpdate.DueDate = pProductos.DueDate;
                 productUpdate.Price = pProductos.Price;

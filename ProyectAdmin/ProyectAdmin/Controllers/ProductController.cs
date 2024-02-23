@@ -43,6 +43,14 @@ namespace ProyectAdmin.Controllers
             return View(producto);
         }
 
+        public async Task<IActionResult> DetailsPartial(int id)
+        {
+
+            ProductGetByIdDTO productId = new ProductGetByIdDTO { IdProduct = id };
+            ProductGellAllDTO producto = await _ProductBL.SearchOne(productId);
+            return View(producto);
+        }
+
         // GET: Productos/Create
         public ActionResult Create()
         {
@@ -61,6 +69,7 @@ namespace ProyectAdmin.Controllers
                 {
                     NameProduct = pProducts.NameProduct,
                     Dimensions = pProducts.Dimensions,
+                    Description = pProducts.Description,
                     Quantity = pProducts.Quantity,
                     Price = pProducts.Price,
                     AcquisitionDate = pProducts.AcquisitionDate,

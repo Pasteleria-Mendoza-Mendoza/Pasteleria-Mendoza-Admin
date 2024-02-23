@@ -55,23 +55,25 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var item in Model)
-        {
-            <div class="col">
-                <div class="card">
-                    <img class="card-img-top" src="http://localhost:5000/images/@item.ImageUrl" alt="Product Image" />
-                    <div class="card-body">
-                        <h5 class="card-title">@item.NameProduct</h5>
-                        <p class="card-text">@item.Price.ToString("C")</p>
-                        <p class="card-text"><strong>Stock: </strong>@item.Quantity</p>
-                    </div>
-                    <div class="card-footer">
-                        <a asp-action="Details" asp-route-id="@item.IdProduct" class="btn btn-outline-dark">Ver Detalles</a>
-                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-pencil"></i> Editar</a>
-                        <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-trash"></i> Eliminar</a>
-                    </div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <a asp-action="DetailsPartial" asp-route-id="@item.IdProduct">
+                    <img class="card-img-top product-image" src="http://localhost:5000/images/@item.ImageUrl" alt="@item.NameProduct">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">@item.NameProduct</h5>
+                    <p class="card-text">@item.Price.ToString("C")</p>
+                    <p class="card-text"><strong>Stock: </strong>@item.Quantity</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@item.IdProduct" class="btn btn-outline-dark">Reservar</a>
+                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-pencil"></i> Editar</a>
+                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-trash"></i> Eliminar</a>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>

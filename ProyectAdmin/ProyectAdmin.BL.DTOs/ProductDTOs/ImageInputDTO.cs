@@ -9,6 +9,7 @@ namespace Inventory.Web.Controllers
         public string NameProduct { get; set; }
         public int Quantity { get; set; }
         public string Dimensions { get; set; }
+        public string Description { get; set; }
         public DateTime AcquisitionDate { get; set; }
         public DateTime DueDate { get; set; }
         public IFormFile ImageUrl { get; set; }
