@@ -68,6 +68,9 @@ namespace ProyectAdmin.DAL
             {
                 // Agregar la orden a la tabla de solicitudes de orden
                 dbContext.PushesOrder.Add(pOrder);
+
+                // Guardar los cambios en la base de datos
+                dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -76,6 +79,7 @@ namespace ProyectAdmin.DAL
                 throw;
             }
         }
+
 
 
         public async Task DeleteOrden(int ordenId)

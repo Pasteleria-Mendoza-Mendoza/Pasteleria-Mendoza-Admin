@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectAdmin.BL.Interfaces;
-using ProyectAdmin.BL.DTOs.ProductDTOs;
-using Inventory.Web.Controllers;
-using Microsoft.AspNetCore.Hosting;
-using ProyectAdmin.BL;
-using ProyectAdmin.BL.DTOs.OrdersDTOs;
 using ProyectAdmin.BL.DTOs;
+using ProyectAdmin.BL.DTOs.OrdersDTOs;
+using ProyectAdmin.BL.DTOs.ProductDTOs;
+using ProyectAdmin.BL.Interfaces;
 
 namespace ProyectAdmin.Controllers
 {
@@ -22,38 +19,16 @@ namespace ProyectAdmin.Controllers
 
         public async Task<IActionResult> Index(ProductSearchOutputDTO productos)
         {
-          //  if (TempData.ContainsKey("SuccessMessage"))
-            //{
-              //  ViewBag.SuccessMessage = TempData["SuccessMessage"];
-            //}
-            //if (TempData.ContainsKey("WarningMessage"))
-            //{
-              //  ViewBag.WarningMessage = TempData["WarningMessage"];
-            //}
+              if (TempData.ContainsKey("SuccessMessage"))
+             {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData.ContainsKey("WarningMessage"))
+            {
+               ViewBag.WarningMessage = TempData["WarningMessage"];
+            }
             var list = await _ProductBL.Search(productos);
             return View(list);
-        }
-
-
-
-        // GET: Productos/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            // Obtener el detalle del producto
-            ProductGetByIdDTO productId = new ProductGetByIdDTO { IdProduct = id };
-            ProductGellAllDTO producto = await _ProductBL.SearchOne(productId);
-
-            // Crear una instancia del modelo de órdenes
-            var orderModel = new CreateOrderInputDTO();
-
-            // Crear una instancia de la clase de vista personalizada y asignar los modelos
-            var viewModel = new ProductOrderViewModel
-            {
-                Product = producto,
-                Order = orderModel
-            };
-
-            return View(viewModel);
         }
 
         public async Task<IActionResult> DetailsPartial(int id)
@@ -72,42 +47,36 @@ namespace ProyectAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ImageInputDTO pProducts)
+        public async Task<ActionResult> Create(ProductCreateInputDTO producto, IFormFile Imagen)
         {
             try
             {
-                string fileName = null;
+                Stream image = Imagen.OpenReadStream();
+                // Llamamos a nuestra interfaz para subir el archivo
+                string urlimagen = await _ProductBL.SubirArchivo(image, Imagen.FileName);
 
-                ProductCreateInputDTO product = new ProductCreateInputDTO()
+                // Creamos un objeto ProductCreateInputDTO a partir de los datos del objeto Product
+                ProductCreateInputDTO productDTO = new ProductCreateInputDTO()
                 {
-                    NameProduct = pProducts.NameProduct,
-                    Dimensions = pProducts.Dimensions,
-                    Description = pProducts.Description,
-                    Quantity = pProducts.Quantity,
-                    Price = pProducts.Price,
-                    AcquisitionDate = pProducts.AcquisitionDate,
-                    DueDate = pProducts.DueDate
+                    NameProduct = producto.NameProduct,
+                    Dimensions = producto.Dimensions,
+                    Description = producto.Description,
+                    Quantity = producto.Quantity,
+                    Price = producto.Price,
+                    AcquisitionDate = producto.AcquisitionDate,
+                    DueDate = producto.DueDate,
+                    ImageUrl = urlimagen // Asignamos la URL de la imagen recién subida
                 };
 
-                if (pProducts.ImageUrl != null)
-                {
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(pProducts.ImageUrl.FileName);
-                    string filePath = Path.Combine(uploadsFolder, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await pProducts.ImageUrl.CopyToAsync(fileStream);
-                    }
-                    product.ImageUrl = fileName;
-                }
+                // Llamamos al método CreateProduct con el objeto ProductCreateInputDTO
+                ProductCreateOutputDTO result = await _ProductBL.CreateProduct(productDTO);
 
-                ProductCreateOutputDTO result = await _ProductBL.CreateProduct(product);
                 if (result != null)
                     return RedirectToAction(nameof(Index));
                 else
                 {
                     ViewBag.ErrorMessage = "No se pudo agregar el registro";
-                    return View(pProducts);
+                    return View(producto);
                 }
             }
             catch (Exception ex)
@@ -119,9 +88,8 @@ namespace ProyectAdmin.Controllers
                 }
                 return View(new ProductCreateInputDTO());
             }
-
-
         }
+
 
 
 

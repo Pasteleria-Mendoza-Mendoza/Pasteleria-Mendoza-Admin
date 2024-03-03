@@ -21,7 +21,6 @@ namespace ProyectAdmin.EN
         public DateTime DeliverDate { get; set; }
         public string Dedication { get; set; }
         public string Details { get; set; }
-        public decimal Cost { get; set; }
         public byte State { get; set; }
         public enum StateOrder : byte
         {

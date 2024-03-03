@@ -38,8 +38,7 @@ namespace ProyectAdmin.BL
                     DeliverDate = orden.DeliverDate,
                     Dedication = orden.Dedication,
                     Details = orden.Details,
-                    State = (byte)StateOrder.Pendiente,
-                    Cost = orden.Cost
+                    State = (byte)StateOrder.Pendiente
                 };
 
                 // Llama al método en tu DAL para agregar la nueva orden
@@ -145,8 +144,7 @@ namespace ProyectAdmin.BL
                 DeliverDate = DateTime.Now,
                 Dedication = p.Dedication,
                 Details = p.Details,
-                State = StateOrder.Pendiente,
-                Cost = p.Cost
+                State = StateOrder.Pendiente
             }).ToList();
 
             return order;
@@ -171,8 +169,7 @@ namespace ProyectAdmin.BL
                 DeliverDate = DateTime.Now,
                 Dedication = isOrden.Dedication,
                 Details = isOrden.Details,
-                State = StateOrder.Pendiente,
-                Cost = isOrden.Cost
+                State = StateOrder.Pendiente
             };
             return order;
         }

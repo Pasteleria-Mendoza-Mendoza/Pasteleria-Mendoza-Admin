@@ -1,5 +1,6 @@
 ﻿@using ProyectAdmin.BL.DTOs.ProductDTOs
 @model ProductCreateInputDTO
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,9 +35,8 @@
                                 <input asp-for="Price" class="form-control" />
                                 <span asp-validation-for="Price" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlFile1" class="form-label">Imagen</label>
-                                <input type="file" name="ImageUrl" class="form-control-file" id="exampleFormControlFile1">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="Imagen">
                             </div>
                         </div>
 

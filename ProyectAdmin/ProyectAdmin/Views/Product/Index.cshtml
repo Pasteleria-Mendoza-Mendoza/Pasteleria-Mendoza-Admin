@@ -15,7 +15,6 @@
         @ViewBag.WarningMessage
     </div>
 }
-<!-- Vista Razor donde quieres mostrar la alerta -->
 @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger" role="alert">
@@ -47,31 +46,27 @@
     }
 
 </style>
-<
-<h1 class="text-center titulo-grande">PRODUCTOS DE NUESTRO CATÁLOGO</h1>
-    <div class="row mb-4">
-        <div class="col-12 text-center">
-            <a asp-action="Create" asp-controller="Product" class="btn btn-warning"><i class="bi bi-plus"></i> Agregar Nuevo Producto</a>
-        </div>
-    </div>
 
+<h1 class="text-center titulo-grande">PRODUCTOS DE NUESTRO CATÁLOGO</h1>
+<a asp-action="Create" asp-controller="Product" class="btn btn-outline-dark btn-block"><i class="bi bi-arrow-left"></i> Añadir</a>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach (var item in Model)
     {
         <div class="col">
             <div class="card">
                 <a asp-action="DetailsPartial" asp-route-id="@item.IdProduct">
-                    <img class="card-img-top product-image" src="http://localhost:5000/images/@item.ImageUrl" alt="@item.NameProduct">
+                    <img class="card-img-top product-image" src="@item.ImageUrl" alt="@item.NameProduct">
                 </a>
-                <div class="card-body">
-                    <h5 class="card-title">@item.NameProduct</h5>
-                    <p class="card-text">@item.Price.ToString("C")</p>
-                    <p class="card-text"><strong>Stock: </strong>@item.Quantity</p>
+                <div class="card-body" style="font-family: var(--bs-font-sans-serif);">
+                    <h5 class="card-title text-center" style="color: #131313;">@item.NameProduct</h5>
+                    <p class="card-text"><strong>Dimensiones: </strong>@item.Dimensions</p>
+                    <p class="card-text" style="color: #ff17c1;">@item.Price.ToString("C")</p>
                 </div>
-                <div class="card-footer">
-                    <a asp-action="Details" asp-route-id="@item.IdProduct" class="btn btn-outline-dark">Reservar</a>
-                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-pencil"></i> Editar</a>
-                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-outline-dark"><i class="bi bi-trash"></i> Eliminar</a>
+                <div class="card-footer text-center">
+                    <a asp-action="Create" asp-controller="PushesOrder" asp-route-id="@item.IdProduct" class="btn btn-primary">Reservar</a>
+                    <a asp-action="Edit" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-success"><i class="bi bi-pencil"></i> Editar</a>
+                    <a asp-action="Delete" asp-controller="Product" asp-route-id="@item.IdProduct" class="btn btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+
                 </div>
             </div>
         </div>

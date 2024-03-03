@@ -57,8 +57,7 @@
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Fecha de reserva</th>
-                                    <th class="text-center">Estado</th>
-
+                                    <th>Estado</th>
                                     <th class="text-center">Acción</th>
                                 </tr>
                             </thead>
@@ -69,7 +68,6 @@
                                         <td>@solicitud.nombreProducto</td>
                                         <td>@solicitud.Amount</td>
                                         <td>@solicitud.ReservationDate</td>
-                                        <td>@solicitud.State</td>
                                         <td class="text-center">
                                             @if (solicitud.State == PushesOrder.StateOrder.Pendiente)
                                             {

@@ -14,6 +14,6 @@ namespace ProyectAdmin.BL.Interfaces
         Task<ProductDeleteDTO> DeleteProduct(ProductDeleteDTO pProductos);
         Task<List<ProductSearchOutputDTO>> Search(ProductSearchOutputDTO pProductos);
         Task<ProductGellAllDTO> SearchOne(ProductGetByIdDTO pProductos);
-
+        Task<string> SubirArchivo(Stream archivo, string nombre);
     }
 }

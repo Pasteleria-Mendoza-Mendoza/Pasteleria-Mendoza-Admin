@@ -18,7 +18,6 @@ namespace ProyectAdmin.BL.DTOs.OrdersDTOs
         public DateTime DeliverDate { get; set; }
         public string Dedication { get; set; }
         public string Details { get; set; }
-        public decimal Cost { get; set; }
         public StateOrder State { get; set; }
     }
 }

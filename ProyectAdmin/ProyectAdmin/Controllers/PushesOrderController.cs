@@ -18,17 +18,45 @@ namespace ProyectAdmin.Controllers
             _productBL = productBL;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> AddOrder(CreateOrderInputDTO orden)
+        // Método para mostrar el formulario vacío de creación de órdenes
+        public async Task<ActionResult> Create()
         {
-            // Llamar al método para agregar la orden usando el servicio BL correspondiente
-            var createdOrder = await _pushesOrderBL.AddOrder(orden);
+            try
+            {
+                // Obtener la lista de todos los productos desde _productosBL
+                var productosList = await _productBL.Search(new ProductSearchOutputDTO());
+                ViewBag.Productos = productosList;
 
-            // Configurar el mensaje de éxito
-            TempData["SuccessMessage"] = "Se añadió el producto a la orden.";
+                return View(new CreateOrderInputDTO());
+            }
+            catch (Exception ex)
+            {
+                // Manejo de error
+                ViewBag.ErrorMessage = "Error al obtener la lista de productos";
+                return View("Error");
+            }
+        }
 
-            // Permanecer en la vista Index de Productos
-            return RedirectToAction("Index", "Product");
+        [HttpPost]
+        public async Task<ActionResult> Create(CreateOrderInputDTO orderInputDTO)
+        {
+            try
+            {
+                // Llamar al método para agregar la orden usando el servicio BL correspondiente
+                var createdOrder = await _pushesOrderBL.AddOrder(orderInputDTO);
+
+                // Configurar el mensaje de éxito
+                TempData["SuccessMessage"] = "Se añadió el producto a la orden.";
+
+                // Permanecer en la vista Index de Productos
+                return RedirectToAction("Index", "Product");
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                TempData["ErrorMessage"] = $"Error al crear la orden: {ex.Message}";
+                return RedirectToAction("Index", "Product");
+            }
         }
 
 
@@ -54,8 +82,6 @@ namespace ProyectAdmin.Controllers
                     orden.nombreProducto = nombreProducto;
                 }
             }
-
-
             // Configurar ViewBag.Sucursales con la lista de productos
             ViewBag.Productos = productosList;
 
