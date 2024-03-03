@@ -150,28 +150,37 @@ namespace ProyectAdmin.BL
             return order;
         }
 
-        public async Task<GetAllOrderOutputDTO> GetOrderById(int Id)
+
+        public async Task<GetAllOrderOutputDTO> GetOrderById(GetAllOrderOutputDTO pProductos)
         {
-            PushesOrder isOrden = await _pushesOrderDAL.GetById(Id);
-            if (isOrden == null)
-                throw new Exception($"Order by id:{Id} is not exits");
-            GetAllOrderOutputDTO order = new GetAllOrderOutputDTO()
+            PushesOrder byProduct = new PushesOrder()
             {
-                ReservationDate = DateTime.Now,
-                IdProduct = isOrden.IdProduct,
-                Names = isOrden.Names,
-                LastNames = isOrden.LastNames,
-                DUI = isOrden.DUI,
-                Phone = isOrden.Phone,
-                Amount = isOrden.Amount,
-                Adress = isOrden.Adress,
-                Dimension = isOrden.Dimension,
-                DeliverDate = DateTime.Now,
-                Dedication = isOrden.Dedication,
-                Details = isOrden.Details,
-                State = StateOrder.Pendiente
+                IdOrder = pProductos.IdOrder
             };
-            return order;
+            PushesOrder isProduct = await _pushesOrderDAL.GetById(byProduct.IdOrder);
+
+            if (isProduct != null)
+            {
+
+                GetAllOrderOutputDTO products = new GetAllOrderOutputDTO()
+                {
+                    ReservationDate = DateTime.Now,
+                    IdProduct = isProduct.IdProduct,
+                    Names = isProduct.Names,
+                    LastNames = isProduct.LastNames,
+                    DUI = isProduct.DUI,
+                    Phone = isProduct.Phone,
+                    Amount = isProduct.Amount,
+                    Adress = isProduct.Adress,
+                    Dimension = isProduct.Dimension,
+                    DeliverDate = DateTime.Now,
+                    Dedication = isProduct.Dedication,
+                    Details = isProduct.Details,
+                    State = StateOrder.Pendiente
+                };
+                return products;
+            }
+            throw new Exception($"Orden con Id: {pProductos.IdOrder} no encontrado");
         }
 
         public async Task RechazarPedidoAsync(int ordenId)

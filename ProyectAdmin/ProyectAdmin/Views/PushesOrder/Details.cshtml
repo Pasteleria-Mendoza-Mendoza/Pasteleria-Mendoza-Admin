@@ -1,0 +1,58 @@
+﻿@using ProyectAdmin.BL.DTOs.OrdersDTOs
+@model GetAllOrderOutputDTO
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="container mt-4">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #5d87ff; border-bottom: 1px solid #e0e0e0;">
+                <img src="~/lib/InventoryPLT/src/assets/images/logos/LogoDetalle.png" width="180" alt="" class="mx-auto">
+                <a asp-action="Index" asp-controller="Product" class="btn btn-danger ml-2">X</a>
+            </div>
+
+
+            <div class="card-body" style="background-color: #FFFFFF;">
+                <div>
+                    <dl class="row">
+                        <dt class="col-sm-3 text-muted">Producto:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.nombreProducto)</dd>
+
+                        <dt class="col-sm-3 text-muted">Nombres:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Names)</dd>
+
+                        <dt class="col-sm-3 text-muted">Apellidos:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.LastNames)</dd>
+
+                        <dt class="col-sm-3 text-muted">DUI:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.DUI)</dd>
+
+                        <dt class="col-sm-3 text-muted">Dirección:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Adress)</dd>
+
+                        <dt class="col-sm-3 text-muted">Contacto:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Phone)</dd>
+
+                        <dt class="col-sm-3 text-muted">Cantidad:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Amount)</dd>
+                                     <dt class="col-sm-3 text-muted">Dimensión:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Dimension)</dd>
+
+                        <dt class="col-sm-3 text-muted">Dedicatoria:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Dedication)</dd>
+                        <dt class="col-sm-3 text-muted">Fecha de reserva:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.DeliverDate)</dd>
+
+                        <dt class="col-sm-3 text-muted">Fecha de registro:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.ReservationDate)</dd>
+                        <dt class="col-sm-3 text-muted"Detalles:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Details)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

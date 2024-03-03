@@ -34,7 +34,7 @@
             </div>
             <div class="card-body" style="background-color: #FFFFFF;">
                 <div class="d-flex justify-content-between mb-3">
-                    <form asp-controller="SolicitudOrden" asp-action="Index" method="get" class="form-inline">
+                    <form asp-controller="PushesOrder" asp-action="Index" method="get" class="form-inline">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="fecha" style="background-color: #343a40; color: white;">Fecha de Orden:</label>
@@ -95,9 +95,11 @@
                                                 </form>
                                                 <form asp-action="AutorizarOrden" asp-route-id="@solicitud.IdOrder" method="post" style="display: inline;">
                                                     <button type="submit" class="btn btn-success  btn-sm">Autorizar</button>
-                                                </form>
-                 
-                                                <form asp-action="Eliminar" asp-controller="SolicitudOrden" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta orden?')">
+                                                </form>                                   
+                                            <a asp-action="Details" asp-route-id="@solicitud.IdOrder" class="btn btn-info btn-sm">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+                                            <form asp-action="Eliminar" asp-controller="PushesOrder" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta orden?')">
                                                     <input type="hidden" name="id" value="@solicitud.IdOrder" />
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="far fa-trash-alt"></i> Eliminar

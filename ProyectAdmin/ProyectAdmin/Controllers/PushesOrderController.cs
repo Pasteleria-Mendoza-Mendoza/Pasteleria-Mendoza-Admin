@@ -87,14 +87,15 @@ namespace ProyectAdmin.Controllers
 
             return View(list);
         }
-      
-        public async Task<ActionResult> OrdenDetails(int Id)
+
+        public async Task<ActionResult> Details(int Id)
         {
-            GetAllOrderOutputDTO orden = await _pushesOrderBL.GetOrderById(Id);
-
-            return View(orden);
-
+            GetAllOrderOutputDTO orderId = new GetAllOrderOutputDTO { IdOrder = Id };
+            GetAllOrderOutputDTO order = await _pushesOrderBL.GetOrderById(orderId);
+            return View(order);
         }
+
+
 
         [HttpPost]
         public async Task<ActionResult> AutorizarOrden(int id)

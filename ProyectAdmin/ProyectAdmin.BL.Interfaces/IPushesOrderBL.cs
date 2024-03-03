@@ -4,9 +4,9 @@ namespace ProyectAdmin.BL.Interfaces
 {
     public interface IPushesOrderBL
     {
-        public Task<GetAllOrderOutputDTO> GetOrderById(int Id);
-        public Task<List<GetAllOrderOutputDTO>> GetAllOrder(DateTime? specificDate = null);
-        public Task<CreateOrderInputDTO> AddOrder(CreateOrderInputDTO orden);
+        Task<GetAllOrderOutputDTO> GetOrderById(GetAllOrderOutputDTO pProductos);
+        Task<List<GetAllOrderOutputDTO>> GetAllOrder(DateTime? specificDate = null);
+        Task<CreateOrderInputDTO> AddOrder(CreateOrderInputDTO orden);
         Task DeleteOrden(int ordeinId);
         Task AutorizarPedidoAsync(int ordenId);
         Task RechazarPedidoAsync(int ordenId);
