@@ -1,0 +1,30 @@
+﻿@model Admin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="row mt-5">
+        <div class="col-sm-4 offset-sm-4">
+        <form asp-controller="Acceso" asp-action="Index" method="post">
+            <div class="mb-3">
+                <label for="exampleImputEmail" class=""form-label>Email</label>
+                <input typeof="email" class="form-control" asp-for="Email">
+            </div>
+            <div class="mb-3">
+                <label for="exampleImputPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" asp-for="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
+    </div>
+   </div>
+</body>
+</html>

@@ -18,6 +18,17 @@ namespace ProyectAdmin.Controllers
             return View();
         }
 
+        public  IActionResult Product()
+        {
+            return View();
+        }
+
+
+        public IActionResult PushesOrder()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
