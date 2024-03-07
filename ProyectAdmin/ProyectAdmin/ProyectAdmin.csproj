@@ -28,8 +28,4 @@
     <ProjectReference Include="..\ProyectAdmin.IoC\ProyectAdmin.IoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Rol\" />
-  </ItemGroup>
-
 </Project>
