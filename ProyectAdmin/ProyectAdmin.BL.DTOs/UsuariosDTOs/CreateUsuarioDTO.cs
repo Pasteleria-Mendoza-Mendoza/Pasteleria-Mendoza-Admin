@@ -13,10 +13,6 @@ namespace ProyectAdmin.BL.DTOs.UsuariosDTOs
         [Display(Name = "Rol")]
         public int RolId { get; set; }
 
-        [Required(ErrorMessage = "Sucursal es obligatorio.")]
-        [Display(Name = "Sucursal")]
-        public int SucursalesId { get; set; }
-
         [Required(ErrorMessage = "Nombre es obligatorio.")]
         [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Nombre { get; set; }
@@ -24,15 +20,6 @@ namespace ProyectAdmin.BL.DTOs.UsuariosDTOs
         [Required(ErrorMessage = "El apellido es obligatorio.")]
         [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Apellido { get; set; }
-
-        [Required(ErrorMessage = "Teléfono es obligatorio.")]
-        [StringLength(10, ErrorMessage = "Maximo 10 caracteres")]
-        [Display(Name = "Teléfono")]
-        public string Telefono { get; set; }
-
-        [Required(ErrorMessage = "El Dui es obligatorio.")]
-        [StringLength(10, ErrorMessage = "Maximo 10 caracteres")]
-        public string Dui { get; set; }
 
         [Required(ErrorMessage = "El Correo es obligatorio")]
         [StringLength(100, ErrorMessage = "Maximo 100 caracteres")]
