@@ -19,7 +19,7 @@ namespace ProyectAdmin.BL
         public EmailBL(IConfiguration config)
         {
             _config = config;
-        }
+        } 
 
 
         public async Task EnviarEmail(EmailDTO request)
