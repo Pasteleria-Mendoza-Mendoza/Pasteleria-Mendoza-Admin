@@ -16,13 +16,10 @@ namespace ProyectAdmin.BL.DTOs.UsuariosDTOs
         }
         public UsuarioUpdateDTO(UsuarioSearchOutputDTO uUsuario)
         {
-            SucursalesId = uUsuario.SucursalesId;
             UsuarioId = uUsuario.UsuarioId;
             RolId = uUsuario.RolId;
             Nombre = uUsuario.Nombre;
             Apellido = uUsuario.Apellido;
-            Telefono = uUsuario.Telefono;
-            Dui = uUsuario.Dui;
             Correo = uUsuario.Correo;
             Usuario = uUsuario.Usuario;
             Estado = (EstadoUsuario)uUsuario.Estado;
@@ -35,11 +32,6 @@ namespace ProyectAdmin.BL.DTOs.UsuariosDTOs
         [Display(Name = "Rol")]
         public int RolId { get; set; }
 
-        [ForeignKey("Sucursales")]
-        [Required(ErrorMessage = "Sucursal es obligatorio.")]
-        [Display(Name = "Sucursal")]
-        public int SucursalesId { get; set; }
-
         [Required(ErrorMessage = "Nombre es obligatorio.")]
         [StringLength(50, ErrorMessage = "Máximo 50 caracteres")]
         public string Nombre { get; set; }
@@ -47,15 +39,6 @@ namespace ProyectAdmin.BL.DTOs.UsuariosDTOs
         [Required(ErrorMessage = "El apellido es obligatorio.")]
         [StringLength(50, ErrorMessage = "Máximo 50 caracteres")]
         public string Apellido { get; set; }
-
-        [Required(ErrorMessage = "Teléfono es obligatorio.")]
-        [StringLength(10, ErrorMessage = "Máximo 10 caracteres")]
-        [Display(Name = "Teléfono")]
-        public string Telefono { get; set; }
-
-        [Required(ErrorMessage = "El DUI es obligatorio.")]
-        [StringLength(10, ErrorMessage = "Máximo 10 caracteres")]
-        public string Dui { get; set; }
 
         [Required(ErrorMessage = "El Email es obligatorio")]
         [StringLength(100, ErrorMessage = "Máximo 100 caracteres")]
