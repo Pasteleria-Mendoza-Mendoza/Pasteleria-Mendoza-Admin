@@ -13,6 +13,7 @@ namespace ProyectAdmin.DAL
 		public DbSet<PushesOrder> PushesOrder { get; set; }
 		public DbSet<Sale> Sales { get; set; }
         public DbSet<Rol> Rol { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
 
     }
 }
