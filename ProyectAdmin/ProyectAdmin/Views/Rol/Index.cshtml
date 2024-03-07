@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<ProyectAdmin.BL.DTOs.RolDTOs.RolSearchingOutputDTO>
 @{
+    ViewData["Title"] = "Lista de Roles";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Roles</title>
+    <!-- Agrega enlaces a Bootstrap si no están ya incluidos en tu proyecto -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #343a40; border-bottom: 1px solid #e0e0e0;">
+            <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">Lista de Roles</h3>
+            <a asp-action="Create" asp-controller="Rol" class="btn btn-success">Añadir</a>
+        </div>
+
+        <div class="card-body" style="background-color: #FFFFFF;">
+            <hr />
+            <div class="table-responsive" style="background-color: #FFFFFF;">
+                <table class="table table-bordered table-hover">
+                    <thead style="background-color: #343a40; color: white;">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rol in Model)
+                        {
+                            <tr>
+                                <td>@rol.Nombre</td>
+                                <td>@(rol.Estado == 1 ? "Activo" : "Inactivo")</td>
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@rol.RolId" class="btn btn-warning btn-sm">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@rol.RolId" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agrega scripts de Bootstrap si no están ya incluidos en tu proyecto -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html></html>

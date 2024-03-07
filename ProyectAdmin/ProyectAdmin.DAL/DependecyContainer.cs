@@ -12,12 +12,13 @@ namespace ProyectAdmin.DAL
 			services.AddDbContext<PADbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("conexion")));
 
-            services.AddScoped<IAdmin, AdminDAL>();
+           // services.AddScoped<IAdmin, AdminDAL>();
 			services.AddScoped<IBooking, BookingDAL>();
 			services.AddScoped<IProduct, ProductDAL>();
 			services.AddScoped<IPushesOrder, PushesOrderDAL>();
 			services.AddScoped<ISale, SaleDAL>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRolDAL, RolDAL>();
             return services;
         }
 		 

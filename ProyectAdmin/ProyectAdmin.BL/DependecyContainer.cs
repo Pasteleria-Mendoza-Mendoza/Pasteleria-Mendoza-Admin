@@ -7,12 +7,13 @@ namespace ProyectAdmin.BL
 	{
 		public static IServiceCollection AddBLDependecies(this IServiceCollection services)
 		{
-			services.AddTransient<IAdminBL, AdminBL>();
+			//services.AddTransient<IAdminBL, AdminBL>();
 			services.AddTransient<IBookingBL, BookingBL>();
 			services.AddTransient<IPushesOrderBL, PushesOrderBL>();
 			services.AddTransient<IProductBL, ProductBL>();
 			services.AddTransient<ISaleBL, SaleBL>();
-			return services;
+            services.AddTransient<IRolBL, RolBL>();
+            return services;
 		}
 	}
 }

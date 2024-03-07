@@ -3,25 +3,34 @@
 @{
     ViewData["Title"] = "Crear Nuevo Rol";
 }
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="card" style="width: 400px;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #343a40; border-bottom: 1px solid #e0e0e0;">
+            <h3 class="m-0 p-2 text-center text-white">Crear Nuevo Rol</h3>
+        </div>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Nombre" class="font-weight-bold">Nombre</label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
+        <div class="card-body" style="background-color: #FFFFFF;">
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label asp-for="Nombre" class="font-weight-bold">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Estado" class="font-weight-bold">Estado</label>
-        <select asp-for="Estado" class="form-control">
-            <option value="1">Activo</option>
-            <option value="2">Inactivo</option>
-        </select>
-        <span asp-validation-for="Estado" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="Estado" class="font-weight-bold">Estado</label>
+                    <select asp-for="Estado" class="form-control">
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                    </select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+                <div style="margin-top: 10px;"></div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-warning">Guardar</button>
+                    <a asp-action="Index" asp-controller="Rol" class="btn btn-danger ml-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div style="margin-top: 10px;"></div>
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-warning">Guardar</button>
-        <a asp-action="Index" asp-controller="Rol" class="btn btn-danger ml-2">Cancelar</a>
-    </div>
-</form>
+</div>
