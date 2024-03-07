@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectAdmin.EN;
+using ProyectAdmin.EN.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProyectAdmin.DAL
 {
-    internal class UsuarioDAL
+    internal class UsuarioDAL : IUsuarioDAL
     {
         	readonly PADbContext dbContext;
 		public UsuarioDAL(PADbContext context)

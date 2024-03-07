@@ -1,4 +1,5 @@
-﻿using ProyectAdmin.BL.DTOs.OrdersDTOs;
+﻿using Org.BouncyCastle.Asn1.X500;
+using ProyectAdmin.BL.DTOs.OrdersDTOs;
 using ProyectAdmin.BL.Interfaces;
 using ProyectAdmin.DAL;
 using ProyectAdmin.EN;
@@ -30,6 +31,7 @@ namespace ProyectAdmin.BL
                     IdProduct = orden.IdProduct,
                     Names = orden.Names,
                     LastNames = orden.LastNames,
+                    Correo = orden.Correo,
                     DUI = orden.DUI,
                     Phone = orden.Phone,
                     Amount = orden.Amount,
@@ -136,6 +138,7 @@ namespace ProyectAdmin.BL
                 IdProduct = p.IdProduct,
                 Names = p.Names,
                 LastNames = p.LastNames,
+                Correo = p.Correo,
                 DUI = p.DUI,
                 Phone = p.Phone,
                 Amount = p.Amount,
@@ -168,6 +171,7 @@ namespace ProyectAdmin.BL
                     IdProduct = isProduct.IdProduct,
                     Names = isProduct.Names,
                     LastNames = isProduct.LastNames,
+                    Correo = isProduct.Correo,
                     DUI = isProduct.DUI,
                     Phone = isProduct.Phone,
                     Amount = isProduct.Amount,

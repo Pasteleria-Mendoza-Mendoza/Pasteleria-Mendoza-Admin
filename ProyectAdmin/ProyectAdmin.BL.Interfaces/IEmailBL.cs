@@ -9,6 +9,6 @@ namespace ProyectAdmin.BL.Interfaces
 {
     public interface IEmailBL
     {
-        void EnviarEmail(EmailDTO request);
+        Task EnviarEmail(EmailDTO request);
     }
 }

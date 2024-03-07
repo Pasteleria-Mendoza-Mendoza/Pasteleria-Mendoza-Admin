@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ProyectAdmin.BL.DTOs.EmailDTO;
 using ProyectAdmin.BL.DTOs.OrdersDTOs;
 using ProyectAdmin.BL.DTOs.ProductDTOs;
 using ProyectAdmin.BL.Interfaces;
@@ -11,11 +14,12 @@ namespace ProyectAdmin.Controllers
     {
         readonly IPushesOrderBL _pushesOrderBL;
         readonly IProductBL _productBL;
-
-        public PushesOrderController(IPushesOrderBL pushesOrderBL, IProductBL productBL)
+        readonly IEmailBL _email;
+        public PushesOrderController(IPushesOrderBL pushesOrderBL, IProductBL productBL, IEmailBL email)
         {
             _pushesOrderBL = pushesOrderBL;
             _productBL = productBL;
+            _email = email;
         }
 
         // Método para mostrar el formulario vacío de creación de órdenes
@@ -45,8 +49,35 @@ namespace ProyectAdmin.Controllers
                 // Llamar al método para agregar la orden usando el servicio BL correspondiente
                 var createdOrder = await _pushesOrderBL.AddOrder(orderInputDTO);
 
+                #region Envio de correo
+                // Crear un objeto EmailDTO con la información necesaria para enviar el correo electrónico
+                var emailDTO = new EmailDTO
+                {
+                    Para = orderInputDTO.Correo,
+                    Asunto = "Reservación",
+                    Contenido = $@"
+                    <html>
+                        <body>
+                            <div class='container'>
+                                <h1>Pasteleria MENDOZA</h1>
+                                <p>Hola {orderInputDTO.Names},</p>
+                                <p>¡Gracias por tu orden de pastel!</p>
+                                <p>Tu pedido ha sido confirmado y será procesado pronto.</p>
+                                <p>¡Esperamos que disfrutes de nuestros deliciosos pasteles!</p>
+                            </div>
+                        </body>
+                    </html>"
+                };
+
                 // Configurar el mensaje de éxito
                 TempData["SuccessMessage"] = "Se añadió el producto a la orden.";
+
+                // Llamar al método EnviarEmail de EmailBL para enviar el correo electrónico
+                // Llamar al método EnviarEmail de EmailBL para enviar el correo electrónico
+                await _email.EnviarEmail(emailDTO);
+
+
+                #endregion
 
                 // Permanecer en la vista Index de Productos
                 return RedirectToAction("Index", "Product");

@@ -19,6 +19,8 @@ namespace ProyectAdmin.DAL
 			services.AddScoped<ISale, SaleDAL>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRolDAL, RolDAL>();
+            services.AddScoped<IUsuarioDAL, UsuarioDAL>();
+            services.AddScoped<ISecurityDAL, SecurityDAL>();
             return services;
         }
 		 

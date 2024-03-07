@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectAdmin.BL.DTOs.EmailDTO;
 using ProyectAdmin.BL.DTOs.RolDTOs;
@@ -7,6 +8,7 @@ using ProyectAdmin.BL.Interfaces;
 
 namespace ProyectAdmin.Controllers
 {
+   // [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         readonly IUsuarioBL _usuarioBL;
@@ -85,8 +87,7 @@ namespace ProyectAdmin.Controllers
                 </html>"
                     };
 
-                    // Llamar al método EnviarEmail de EmailBL para enviar el correo electrónico
-                    _email.EnviarEmail(emailDTO);
+                    await _email.EnviarEmail(emailDTO);
 
                     #endregion
 
@@ -146,6 +147,7 @@ namespace ProyectAdmin.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, UsuarioUpdateDTO usuario)
         {
@@ -176,6 +178,7 @@ namespace ProyectAdmin.Controllers
             }
         }
 
+
         public async Task<IActionResult> Delete(int id)
         {
             var usuario = await _usuarioBL.GetById(id);
@@ -189,12 +192,16 @@ namespace ProyectAdmin.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _usuarioBL.Delete(id);
             TempData["DangerMessage"] = $"Usuario eliminado exitosamente!";
             return RedirectToAction(nameof(Index));
         }
+
+
         public async Task<IActionResult> Details(int id)
         {
             try

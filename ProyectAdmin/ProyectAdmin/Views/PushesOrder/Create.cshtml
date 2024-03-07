@@ -46,10 +46,10 @@
                             <span asp-validation-for="DUI" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Adress" class="form-label">Direccion:</label>
-                            <input asp-for="Adress" class="form-control" placeholder="Ingrese su dirección" />
-                            <span asp-validation-for="Adress" class="text-danger"></span>
-                        </div>
+                            <label asp-for="Correo" class="form-label">Correo</label>
+                            <input asp-for="Correo" class="form-control" placeholder="Ingrese su correo electronico" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>                  
                     </div>
                     <div class="col-md-6">
                         <!-- Columna 2 -->
@@ -78,6 +78,11 @@
                             <input asp-for="DeliverDate" class="form-control" type="date" />
                             <span asp-validation-for="DeliverDate" class="text-danger"></span>
                         </div>                  
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Adress" class="form-label">Direccion:</label>
+                        <input asp-for="Adress" class="form-control" placeholder="Ingrese su dirección" />
+                        <span asp-validation-for="Adress" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Details" class="form-label">Mas detalles:</label>

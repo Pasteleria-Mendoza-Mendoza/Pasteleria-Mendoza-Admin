@@ -22,7 +22,7 @@ namespace ProyectAdmin.BL
         }
 
 
-        public void EnviarEmail(EmailDTO request)
+        public async Task EnviarEmail(EmailDTO request)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("Email:UserName").Value));

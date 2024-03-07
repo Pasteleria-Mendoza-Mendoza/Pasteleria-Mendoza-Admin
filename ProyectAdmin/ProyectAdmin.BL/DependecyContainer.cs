@@ -13,6 +13,9 @@ namespace ProyectAdmin.BL
 			services.AddTransient<IProductBL, ProductBL>();
 			services.AddTransient<ISaleBL, SaleBL>();
             services.AddTransient<IRolBL, RolBL>();
+            services.AddTransient<IUsuarioBL, UsuarioBL>();
+            services.AddScoped<IEmailBL, EmailBL>();
+            services.AddScoped<ISecurityBL, SecurityBL>();
             return services;
 		}
 	}

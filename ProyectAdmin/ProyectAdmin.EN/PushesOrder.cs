@@ -12,6 +12,7 @@ namespace ProyectAdmin.EN
         public int IdProduct { get; set; }
         public string Names { get; set; }
         public string LastNames { get; set; }
+        public string Correo { get; set; }
         public string DUI { get; set; }
         public string Adress { get; set; }
         public string Phone { get; set; }

@@ -1,0 +1,76 @@
+﻿@model ProyectAdmin.BL.DTOs.UsuariosDTOs.UsuarioUpdateDTO
+@{
+    ViewData["Title"] = "Editar Usuario";
+    var Roles = ViewBag.Roles;
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #343a40; border-bottom: 1px solid #e0e0e0;">
+            <h3 style="margin: 0; padding: 10px; flex: 1; text-align: center; color: white;">@ViewData["Title"]</h3>
+            <a asp-action="Index" asp-controller="Usuarios" class="btn btn-danger ml-2">X</a>
+        </div>
+        <div class="card-body" style="background-color: #FFFFFF;">
+            <form asp-action="Edit" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Columna 1 -->
+                        <div class="form-group">
+                            <label asp-for="RolId" class="control-label"></label>
+                            <select asp-for="RolId" class="form-control">
+                                <option selecter>
+                                    SELECCIONAR ROL
+                                </option>
+                                @foreach (var item in Roles)
+                                {
+                                    <option value=@item.RolId>@item.Nombre</option>
+                                }
+                            </select>
+                            <span asp-validation-for="RolId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="font-weight-bold">Nombre</label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Apellido" class="font-weight-bold">Apellido</label>
+                            <input asp-for="Apellido" class="form-control" />
+                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                        </div>
+
+
+                    <div class="col-md-6">
+                        <!-- Columna 2 -->
+                        <div class="form-group">
+                            <label asp-for="Correo" class="font-weight-bold">Correo</label>
+                            <input asp-for="Correo" class="form-control" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Usuario" class="font-weight-bold">Usuario</label>
+                            <input asp-for="Usuario" class="form-control" />
+                            <span asp-validation-for="Usuario" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Estado" class="font-weight-bold">Estado</label>
+                            <select asp-for="Estado" asp-items="ViewBag.Estados" class="form-control">
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px;">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

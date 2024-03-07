@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProyectAdmin.EN.Interfaces\ProyectAdmin.EN.Interfaces.csproj" />
-    <ProjectReference Include="..\ProyectAdmin.EN\ProyectAdmin.EN.csproj" />
+    <Compile Remove="Documents\**" />
+    <EmbeddedResource Remove="Documents\**" />
+    <None Remove="Documents\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Documents\" />
+    <ProjectReference Include="..\ProyectAdmin.EN.Interfaces\ProyectAdmin.EN.Interfaces.csproj" />
+    <ProjectReference Include="..\ProyectAdmin.EN\ProyectAdmin.EN.csproj" />
   </ItemGroup>
 
   <ItemGroup>
