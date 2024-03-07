@@ -79,13 +79,11 @@ namespace ProyectAdmin.BL
             Usuarios UserEn = await _usuarioDAL.GetById(Id);
             return new UsuarioSearchOutputDTO()
             {
-                SucursalesId = UserEn.SucursalesId,
+          
                 UsuarioId = UserEn.UsuarioId,
                 RolId = UserEn.RolId,
                 Nombre = UserEn.Nombre,
                 Apellido = UserEn.Apellido,
-                Telefono = UserEn.Telefono,
-                Dui = UserEn.Dui,
                 Correo = UserEn.Correo,
                 Usuario = UserEn.Usuario,
                 Estado = UserEn.Estado
@@ -95,17 +93,14 @@ namespace ProyectAdmin.BL
 
         public async Task<List<UsuarioSearchOutputDTO>> Search(UsuarioSearchInputDTO pUser)
         {
-            List<Usuarios> usuarios = await _usuarioDAL.Search(new Usuarios { Nombre = pUser.NombreLike, Telefono = pUser.TelefonoLike });
+            List<Usuarios> usuarios = await _usuarioDAL.Search(new Usuarios { Nombre = pUser.NombreLike });
             List<UsuarioSearchOutputDTO> list = new List<UsuarioSearchOutputDTO>();
             usuarios.ForEach(s => list.Add(new UsuarioSearchOutputDTO
             {
-                SucursalesId = s.SucursalesId,
                 UsuarioId = s.UsuarioId,
                 RolId = s.RolId,
                 Nombre = s.Nombre,
                 Apellido = s.Apellido,
-                Telefono = s.Telefono,
-                Dui = s.Dui,
                 Correo = s.Correo,
                 Estado = s.Estado,
                 Usuario = s.Usuario,
@@ -127,12 +122,9 @@ namespace ProyectAdmin.BL
                 }
 
                 // Actualiza los datos del usuario
-                UserEn.SucursalesId = pUser.SucursalesId;
                 UserEn.RolId = pUser.RolId;
                 UserEn.Nombre = pUser.Nombre;
                 UserEn.Apellido = pUser.Apellido;
-                UserEn.Telefono = pUser.Telefono;
-                UserEn.Dui = pUser.Dui;
                 UserEn.Correo = pUser.Correo;
                 UserEn.Usuario = pUser.Usuario;
                 UserEn.Estado = (byte)pUser.Estado;
