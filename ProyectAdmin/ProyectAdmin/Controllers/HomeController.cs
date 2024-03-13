@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProyectAdmin.Models;
 using System.Diagnostics;
 
@@ -13,18 +15,14 @@ namespace ProyectAdmin.Controllers
             _logger = logger;
         }
 
+    
         public IActionResult Index()
         {
             return View();
         }
 
-        public  IActionResult Product()
-        {
-            return View();
-        }
-
-
-        public IActionResult PushesOrder()
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        public IActionResult Index2()
         {
             return View();
         }

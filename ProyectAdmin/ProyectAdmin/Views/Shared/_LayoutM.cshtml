@@ -21,40 +21,47 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                 @if (User.Identity.IsAuthenticated)
+                @if (!User.IsInRole("Administrador"))
+                {
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Inicio</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a asp-controller="Products" asp-action="Index" class="nav-item nav-link">Pasteles</a>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                @if (User.Identity.IsAuthenticated)
                 {
                     @if (User.IsInRole("Administrador"))
                     {
+                     
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <a asp-controller="ProductAdministrador" asp-action="Index" class="nav-item nav-link">Pasteles</a>
                             <a asp-controller="PushesOrder" asp-action="Index" class="nav-item nav-link">Ordenes</a>
                             <a asp-controller="Rol" asp-action="Index" class="nav-item nav-link">Roles</a>
                             <a asp-controller="Usuarios" asp-action="Index" class="nav-item nav-link">Usuarios</a>
                         </ul>
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
-                                <i class="bi-cart-fill me-1"></i>
-                                Cart
-                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                            </button>
-                        </form>
-                    }                  
+                    }
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit" formaction="/Home/Index">
+                            <i class="bi bi-shop"></i>
+                            Tienda
+                        </button>
+                    </form>
                 }
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <a asp-controller="Home" asp-action="Index" class="nav-item nav-link">Inicio</a>
-                    <li class="nav-item"><a class="nav-link" href="#!">Sobre nosotros</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a asp-controller="Product" asp-action="Index" class="nav-item nav-link">Pasteles</a>                
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit" formaction="/Security/Login">
-                        <i class="bi bi-lock-fill"></i>
-                        Support
-                    </button>
-                </form>
+                  @if (!User.IsInRole("Administrador"))
+                {
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit" formaction="/Security/Login">
+                            <i class="bi bi-shield-lock"></i>
+                            Soporte
+                        </button>
+                    </form>
+                }
             </div>
         </div>
     </nav>

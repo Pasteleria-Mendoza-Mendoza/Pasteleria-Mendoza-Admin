@@ -62,7 +62,7 @@ namespace ProyectAdmin.Controllers
                 else
                 {
                     _logger.LogInformation("------ FIN METODO LOGIN POST SECURITY CONTROLLER -----------");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index2", "Home");
                 }
             }
             // Mostrar excepciones.

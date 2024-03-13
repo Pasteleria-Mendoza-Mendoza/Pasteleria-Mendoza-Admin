@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProyectAdmin.BL.DTOs;
 using ProyectAdmin.BL.DTOs.OrdersDTOs;
 using ProyectAdmin.BL.DTOs.ProductDTOs;
@@ -6,12 +8,13 @@ using ProyectAdmin.BL.Interfaces;
 
 namespace ProyectAdmin.Controllers
 {
-    public class ProductController : Controller
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Administrador")]
+    public class ProductAdministradorController : Controller
     {
         readonly IProductBL _ProductBL;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IProductBL productBL, IWebHostEnvironment webHostEnvironment)
+        public ProductAdministradorController(IProductBL productBL, IWebHostEnvironment webHostEnvironment)
         {
             _ProductBL = productBL;
             _webHostEnvironment = webHostEnvironment;

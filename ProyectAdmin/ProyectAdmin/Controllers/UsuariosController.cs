@@ -8,7 +8,7 @@ using ProyectAdmin.BL.Interfaces;
 
 namespace ProyectAdmin.Controllers
 {
-   // [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Administrador")]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme, Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         readonly IUsuarioBL _usuarioBL;

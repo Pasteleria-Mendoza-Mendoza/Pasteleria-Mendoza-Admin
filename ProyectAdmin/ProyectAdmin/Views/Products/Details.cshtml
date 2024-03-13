@@ -78,13 +78,10 @@
                         <p><strong>Fecha de vencimiento:</strong> @Model.DueDate.ToString("yyyy-MM-dd")</p>
                         <p><strong>Precio:</strong> @Model.Price.ToString("C")</p>
                     </div>
-
-                    <button type="submit" class="btn btn-outline-dark">Hacer reserva</button>
-                    <a asp-action="Index" asp-controller="Product" class="btn btn-outline-dark"><i class="bi bi-arrow-left"></i>Back to list</a>
+                    <a asp-action="Index" asp-controller="Products" class="btn btn-danger"><i class="bi bi-arrow-left"></i>Volver</a>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
